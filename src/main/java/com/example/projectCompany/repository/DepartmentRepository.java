@@ -47,6 +47,6 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
                             @Param("name") String name,
                             @Param("website") String website,
                             @Param("location") String location,
-                            @Param("budget") Company company,
-                            @Param("department") List<Employee> employees);
+                            @Param("company") Company company,
+                            @Param("employees") List<Employee> employees);
 }

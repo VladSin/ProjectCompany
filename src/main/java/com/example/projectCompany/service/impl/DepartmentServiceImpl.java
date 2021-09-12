@@ -46,8 +46,13 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public void updateDepartmentData(Department department) {
-        departmentRepository.updateDepartmentData(department.getId(), department.getName(), department.getWebsite(),
-                department.getLocation(), department.getCompany(), department.getEmployees());
+        departmentRepository.updateDepartmentData(
+                department.getId(),
+                department.getName(),
+                department.getWebsite(),
+                department.getLocation(),
+                department.getCompany(),
+                department.getEmployees());
     }
 
     @Override
