@@ -17,6 +17,8 @@ public interface EmployeeService {
 
     Employee getEmployeeByEmail(String email);
 
+    Employee getEmployeeByUsername(String name);
+
     List<Employee> getAll();
 
     List<Employee> getAllByMarried(boolean married);
