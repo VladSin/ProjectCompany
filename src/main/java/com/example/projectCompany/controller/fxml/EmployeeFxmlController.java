@@ -6,14 +6,18 @@ import com.example.projectCompany.entity.Employee;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @Component
@@ -24,6 +28,13 @@ public class EmployeeFxmlController {
 
     public EmployeeFxmlController() {
     }
+
+    @FXML
+    private MenuItem miHome;
+    @FXML
+    private MenuItem miReport;
+    @FXML
+    private MenuItem miMore;
 
     @FXML
     private TextField tfId;
@@ -124,5 +135,32 @@ public class EmployeeFxmlController {
     private void deleteButton() {
         //employeeService.deleteEmployee(Long.parseLong(tfId.getText()));
         showEmployees();
+    }
+
+    @FXML
+    public void menuHandleButtonAction(ActionEvent event) throws IOException {
+
+        if (event.getSource() == miHome) {
+            redirectToAnotherWindow(event, "/fxml/index.fxml");
+        } else if (event.getSource() == miReport) {
+            redirectToAnotherWindow(event, "/fxml/index.fxml");
+        } else if (event.getSource() == miMore) {
+            redirectToAnotherWindow(event, "/fxml/infoEmployee.fxml");
+        }
+
+    }
+
+    public void redirectToAnotherWindow(ActionEvent event, String url) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = (Parent) loader.load(getClass().getResourceAsStream(url));
+
+        InputStream iconStream = getClass().getResourceAsStream("/icon/bird.png");
+        Image image = new Image(iconStream);
+        stage.getIcons().add(image);
+
+        stage.setTitle("VladSin Company");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 }

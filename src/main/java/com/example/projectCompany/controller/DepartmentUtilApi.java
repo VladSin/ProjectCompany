@@ -9,24 +9,24 @@ import java.util.List;
 
 public interface DepartmentUtilApi {
 
-    @POST("/save")
+    @POST("/department/save")
     Call<Department> saveDepartment(@Body DepartmentRequestDto department);
 
-    @GET("/get/id/")
+    @GET("/department/get/id/")
     Call<Department> getDepartmentById(@Query("id") Long id);
 
-    @GET("/get/name/")
+    @GET("/department/get/name/")
     Call<Department> getDepartmentByName(@Query("name") String name);
 
-    @GET("/get/all/location")
+    @GET("/department/get/all/location")
     Call<List<Department>> getAllDepartmentByLocation(@Query("location") String location);
 
-    @GET("/get/all")
+    @GET("/department/get/all")
     Call<List<Department>> getAllDepartment();
 
-    @POST("/update")
+    @POST("/department/update")
     void updateDepartmentData(@Body DepartmentRequestDto department);
 
-    @DELETE("/delete")
+    @DELETE("/department/delete")
     void deleteDepartment(@Query("id") Long id);
 }

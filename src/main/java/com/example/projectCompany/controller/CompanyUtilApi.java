@@ -9,24 +9,24 @@ import java.util.List;
 
 public interface CompanyUtilApi {
 
-    @POST("/save")
+    @POST("/company/save")
     Call<Company> saveCompany(@Body CompanyRequestDto company);
 
-    @GET("/get/id/")
+    @GET("/company/get/id/")
     Call<Company> getCompanyById(@Query("id") Long id);
 
-    @GET("/get/name/")
+    @GET("/company/get/name/")
     Call<Company> getCompanyByName(@Query("name") String name);
 
-    @GET("/get/all/location")
+    @GET("/company/get/all/location")
     Call<List<Company>> getAllCompanyByLocation(@Query("location") String location);
 
-    @GET("/get/all")
+    @GET("/company/get/all")
     Call<List<Company>> getAllCompany();
 
-    @POST("/update")
+    @POST("/company/update")
     void updateCompanyData(@Body CompanyRequestDto company);
 
-    @DELETE("/delete")
+    @DELETE("/company/delete")
     void deleteCompany(@Query("id") Long id);
 }

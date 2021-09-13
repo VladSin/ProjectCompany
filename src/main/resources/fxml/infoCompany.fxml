@@ -8,7 +8,7 @@
 
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<AnchorPane id="Company" prefHeight="416.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectCompany.controller.fxml.CompanyFxmlController">
+<AnchorPane id="ExpansionCompany" prefHeight="416.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectCompany.controller.fxml.ExpansionCompanyFxmlController">
     <children>
         <VBox layoutX="24.0" layoutY="132.0" prefHeight="190.0" prefWidth="85.0" spacing="20.0">
             <children>
@@ -57,19 +57,11 @@
                 <TableColumn fx:id="colBudget" prefWidth="143.0" text="Budget" />
             </columns>
         </TableView>
-        <Button fx:id="btnInsert" layoutX="28.0" layoutY="342.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="85.0" text="Insert" />
-        <Button fx:id="btnUpdate" layoutX="126.0" layoutY="342.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="85.0" text="Update" />
-        <Button fx:id="btnDelete" layoutX="224.0" layoutY="342.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="76.0" text="Delete" />
-        <Text layoutX="25.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company Information" textAlignment="CENTER" wrappingWidth="275.6708984375">
-            <font>
-                <Font name="System Bold" size="19.0" />
-            </font>
-        </Text>
         <MenuButton mnemonicParsing="false" text="Menu">
             <items>
                 <MenuItem fx:id="miHome" mnemonicParsing="false" onAction="#menuHandleButtonAction" text="Home Page" />
                 <MenuItem fx:id="miReport" mnemonicParsing="false" onAction="#menuHandleButtonAction" text="Report" />
-                <MenuItem fx:id="miMore" mnemonicParsing="false" onAction="#menuHandleButtonAction" text="More Actions" />
+                <MenuItem fx:id="miBack" mnemonicParsing="false" onAction="#menuHandleButtonAction" text="Go Back" />
             </items>
             <font>
                 <Font name="System Bold" size="15.0" />

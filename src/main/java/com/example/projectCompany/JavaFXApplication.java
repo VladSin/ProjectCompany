@@ -5,9 +5,12 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+
+import java.io.InputStream;
 
 public class JavaFXApplication extends Application {
 
@@ -24,11 +27,15 @@ public class JavaFXApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        String fxmlFile = "/fxml/mainEmployee.fxml";
+        String fxmlFile = "/fxml/index.fxml";
         FXMLLoader loader = new FXMLLoader();
         Parent root = (Parent) loader.load(getClass().getResourceAsStream(fxmlFile));
 
-        primaryStage.setTitle("LCH Company");
+        InputStream iconStream = getClass().getResourceAsStream("/icon/bird.png");
+        Image image = new Image(iconStream);
+        primaryStage.getIcons().add(image);
+
+        primaryStage.setTitle("VladSin Company");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

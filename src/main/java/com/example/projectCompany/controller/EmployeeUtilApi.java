@@ -9,40 +9,40 @@ import java.util.List;
 
 public interface EmployeeUtilApi {
 
-    @POST("/save")
+    @POST("/employee/save")
     Call<EmployeeResponseDto> saveEmployee(@Body EmployeeRequestDto employee);
 
-    @GET("/get/id/")
+    @GET("/employee/get/id/")
     Call<EmployeeResponseDto> getEmployeeById(@Query("id") Long id);
 
-    @GET("/get/username/")
+    @GET("/employee/get/username/")
     Call<EmployeeResponseDto> getEmployeeByUsername(@Query("username") String username);
 
-    @GET("/get/email/")
+    @GET("/employee/get/email/")
     Call<EmployeeResponseDto> getEmployeeByEmail(@Query("email") String email);
 
-    @GET("/get/all")
+    @GET("/employee/get/all")
     Call<List<EmployeeResponseDto>> getAll();
 
-    @GET("/get/all/married")
+    @GET("/employee/get/all/married")
     Call<List<EmployeeResponseDto>> getAllByMarried(@Query("married") boolean married);
 
-    @GET("/get/all/salary/after")
+    @GET("/employee/get/all/salary/after")
     Call<List<EmployeeResponseDto>> getAllBySalaryAfter(@Query("salary") double salary);
 
-    @GET("/get/all/salary/before")
+    @GET("/employee/get/all/salary/before")
     Call<List<EmployeeResponseDto>> getAllBySalaryBefore(@Query("salary") double salary);
 
-    @GET("/get/all/salary/between")
+    @GET("/employee/get/all/salary/between")
     Call<List<EmployeeResponseDto>> getAllBySalaryBetween(@Query("minSalary") double minSalary,
                                                           @Query("maxSalary") double maxSalary);
 
-    @GET("/get/all/department")
+    @GET("/employee/get/all/department")
     Call<List<EmployeeResponseDto>> getAllByDepartment(@Query("department") String department);
 
-    @POST("/update")
+    @POST("/employee/update")
     void updateEmployeeData(@Body EmployeeRequestDto employee);
 
-    @DELETE("/delete")
+    @DELETE("/employee/delete")
     void deleteEmployee(@Query("id") Long id);
 }

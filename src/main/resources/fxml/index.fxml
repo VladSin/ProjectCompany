@@ -1,14 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fxml.Index"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane id="Index" prefHeight="416.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectCompany.controller.fxml.MainFxmlController">
+   <children>
+      <Text fontSmoothingType="LCD" layoutX="113.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Добро пожаловать в учебный проект Company!!!" wrappingWidth="773.20263671875">
+         <font>
+            <Font name="System Bold Italic" size="29.0" />
+         </font>
+      </Text>
+      <Text layoutX="408.0" layoutY="127.0" strokeType="INSIDE" strokeWidth="0.0" text="Функционал данного приложения моделирует работу с базой данных некоторой компании:&#10;&#10;   • Управление данными отделов компании&#10;   • Управление данными сотрудников компании &#10;   • Документирование и составление отчетов  &#10;&#10;По всем вопросам Вы можете обратиться непосредственно разработчику этого приложения по электронной почте: Vladsinitsa23@gmail.com               " wrappingWidth="436.0">
+         <font>
+            <Font name="System Italic" size="17.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="249.0" fitWidth="294.0" layoutX="113.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/icon/bird.png" />
+         </image>
+      </ImageView>
+      <MenuButton mnemonicParsing="false" text="Menu">
+        <items>
+          <MenuItem fx:id="miLogout" mnemonicParsing="false" onAction="#menuHandleButtonAction" text="Log Out" />
+          <MenuItem fx:id="miCompany" mnemonicParsing="false" onAction="#menuHandleButtonAction" text="Company" />
+            <Menu mnemonicParsing="false" text="Information">
+              <items>
+                <MenuItem fx:id="miDepartment" mnemonicParsing="false" onAction="#menuHandleButtonAction" text="Department"/>
+              </items>
+                <items>
+                    <MenuItem fx:id="miEmployee" mnemonicParsing="false" onAction="#menuHandleButtonAction" text="Employee" />
+                </items>
+            </Menu>
+        </items>
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </MenuButton>
+   </children>
 </AnchorPane>

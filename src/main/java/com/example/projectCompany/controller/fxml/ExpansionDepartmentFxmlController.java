@@ -3,14 +3,15 @@ package com.example.projectCompany.controller.fxml;
 import com.example.projectCompany.controller.DepartmentUtilApi;
 import com.example.projectCompany.controller.config.DepartmentApiConfig;
 import com.example.projectCompany.entity.Department;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -18,16 +19,14 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 @Component
-@FxmlView("mainDepartment.fxml")
-public class DepartmentFxmlController {
+@FxmlView("infoDepartment.fxml")
+public class ExpansionDepartmentFxmlController {
 
     private final DepartmentUtilApi api = DepartmentApiConfig.getApi();
 
-    public DepartmentFxmlController() {
+    public ExpansionDepartmentFxmlController() {
     }
 
     @FXML
@@ -35,7 +34,7 @@ public class DepartmentFxmlController {
     @FXML
     private MenuItem miReport;
     @FXML
-    private MenuItem miMore;
+    private MenuItem miBack;
 
     @FXML
     private TextField tfId;
@@ -62,67 +61,14 @@ public class DepartmentFxmlController {
     private TableColumn<Department, String> colCompany;
 
     @FXML
-    private Button btnInsert;
-    @FXML
-    private Button btnUpdate;
-    @FXML
-    private Button btnDelete;
-
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-
-        if (event.getSource() == btnInsert) {
-            insertRecord();
-        } else if (event.getSource() == btnUpdate) {
-            updateRecord();
-        } else if (event.getSource() == btnDelete) {
-            deleteButton();
-        }
-
-    }
-
-    @FXML
-    public void initialize(URL url, ResourceBundle rb) {
-        showDepartments();
-    }
-
-    public ObservableList<Department> getDepartmentsList() {
-        return null;
-    }
-
-    public void showDepartments() {
-        ObservableList<Department> list = getDepartmentsList();
-
-        colId.setCellValueFactory(new PropertyValueFactory<Department, Long>("id"));
-        colName.setCellValueFactory(new PropertyValueFactory<Department, String>("name"));
-        colLocation.setCellValueFactory(new PropertyValueFactory<Department, String>("location"));
-        colWebSite.setCellValueFactory(new PropertyValueFactory<Department, String>("website"));
-        colCompany.setCellValueFactory(new PropertyValueFactory<Department, String>("company"));
-
-        tvDepartment.setItems(list);
-    }
-
-    private void insertRecord() {
-        showDepartments();
-    }
-
-    private void updateRecord() {
-        showDepartments();
-    }
-
-    private void deleteButton() {
-        showDepartments();
-    }
-
-    @FXML
     public void menuHandleButtonAction(ActionEvent event) throws IOException {
 
         if (event.getSource() == miHome) {
             redirectToAnotherWindow(event, "/fxml/index.fxml");
         } else if (event.getSource() == miReport) {
             redirectToAnotherWindow(event, "/fxml/index.fxml");
-        } else if (event.getSource() == miMore) {
-            redirectToAnotherWindow(event, "/fxml/infoDepartment.fxml");
+        } else if (event.getSource() == miBack) {
+            redirectToAnotherWindow(event, "/fxml/mainDepartment.fxml");
         }
 
     }

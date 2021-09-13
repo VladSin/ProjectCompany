@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class DepartmentApiConfig {
 
-    private static final String SERVER_URL = "https://project-company.herokuapp.com/department";
+    private static final String SERVER_URL = "https://project-company.herokuapp.com";
     // private static final String SERVER_URL = "http://localhost:8080/department";
     private static DepartmentUtilApi instance;
 
