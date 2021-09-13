@@ -9,7 +9,7 @@ import java.util.Optional;
 @Service
 public interface CompanyService {
 
-    Company saveCompany(Company company);
+    void saveCompany(Company company);
 
     Optional<Company> getCompanyById(Long id);
 

@@ -1,4 +1,4 @@
-package com.example.projectCompany.controller;
+package com.example.projectCompany.controller.api;
 
 import com.example.projectCompany.dto.request.CompanyRequestDto;
 import com.example.projectCompany.dto.response.CompanyResponseDto;

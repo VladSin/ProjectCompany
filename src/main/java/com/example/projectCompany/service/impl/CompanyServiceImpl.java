@@ -20,8 +20,8 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public Company saveCompany(Company company) {
-        return companyRepository.save(company);
+    public void saveCompany(Company company) {
+        companyRepository.save(company);
     }
 
     @Override

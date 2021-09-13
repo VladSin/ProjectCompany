@@ -1,4 +1,4 @@
-package com.example.projectCompany.controller;
+package com.example.projectCompany.controller.api;
 
 import com.example.projectCompany.dto.request.EmployeeRequestDto;
 import com.example.projectCompany.dto.response.EmployeeResponseDto;
@@ -51,14 +51,6 @@ public class EmployeeController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("get/all")
-    public ResponseEntity<List<EmployeeResponseDto>> getEmployees() {
-        List<EmployeeResponseDto> response = employeeService.getAll().stream()
-                .map(EmployeeResponseDto::fromEmployee)
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-
     @GetMapping("get/id/{id}")
     public ResponseEntity<EmployeeResponseDto> getEmployeeById(@PathVariable(name = "id") Long id) {
         Employee employee = employeeService.getEmployeeById(id).orElse(null);
@@ -89,9 +81,57 @@ public class EmployeeController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping("get/all")
+    public ResponseEntity<List<EmployeeResponseDto>> getEmployees() {
+        List<EmployeeResponseDto> response = employeeService.getAll().stream()
+                .map(EmployeeResponseDto::fromEmployee)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("get/all/married/{married}")
+    public ResponseEntity<List<EmployeeResponseDto>> getAllByMarried(@PathVariable(name = "married") boolean married) {
+        List<EmployeeResponseDto> response = employeeService.getAllByMarried(married).stream()
+                .map(EmployeeResponseDto::fromEmployee)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("get/all/salary/after/{salary}")
+    public ResponseEntity<List<EmployeeResponseDto>> getAllBySalaryAfter(@PathVariable(name = "salary") double salary) {
+        List<EmployeeResponseDto> response = employeeService.getAllBySalaryAfter(salary).stream()
+                .map(EmployeeResponseDto::fromEmployee)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("get/all/salary/before/{salary}")
+    public ResponseEntity<List<EmployeeResponseDto>> getAllBySalaryBefore(@PathVariable(name = "salary") double salary) {
+        List<EmployeeResponseDto> response = employeeService.getAllBySalaryBefore(salary).stream()
+                .map(EmployeeResponseDto::fromEmployee)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("get/all/salary/between/{minSalary}/{maxSalary}")
+    public ResponseEntity<List<EmployeeResponseDto>> getAllBySalaryBetween(@PathVariable(name = "minSalary") double minSalary,
+                                                                           @PathVariable(name = "maxSalary") double maxSalary) {
+        List<EmployeeResponseDto> response = employeeService.getAllBySalaryBetween(minSalary, maxSalary).stream()
+                .map(EmployeeResponseDto::fromEmployee)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("get/all/department/{department}")
+    public ResponseEntity<List<EmployeeResponseDto>> getAllByDepartment(@PathVariable(name = "department") String department) {
+        List<EmployeeResponseDto> response = employeeService.getAllByDepartment(departmentService.getDepartmentByName(department)).stream()
+                .map(EmployeeResponseDto::fromEmployee)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @PatchMapping(value = "update/{id}")
-    public ResponseEntity<EmployeeResponseDto> updateEmployee(@PathVariable("id") Long id,
-                                                                  @RequestBody EmployeeRequestDto request) {
+    public ResponseEntity<EmployeeResponseDto> updateEmployee(@PathVariable("id") Long id, @RequestBody EmployeeRequestDto request) {
         if (employeeService.getEmployeeById(id).orElse(null) == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

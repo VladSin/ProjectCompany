@@ -10,7 +10,7 @@ import java.util.Optional;
 @Service
 public interface DepartmentService {
 
-    Department saveDepartment(Department department);
+    void saveDepartment(Department department);
 
     Optional<Department> getDepartmentById(Long id);
 

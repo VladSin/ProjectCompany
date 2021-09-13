@@ -1,5 +1,6 @@
 package com.example.projectCompany;
 
+import javafx.application.Application;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,8 @@ public class ProjectCompanyApplication {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProjectCompanyApplication.class, args);
+//		SpringApplication.run(ProjectCompanyApplication.class, args);
+		Application.launch(JavaFXApplication.class, args);
 	}
 
 }
