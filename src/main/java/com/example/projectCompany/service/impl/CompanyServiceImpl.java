@@ -46,8 +46,12 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void updateCompanyData(Company company) {
-        companyRepository.updateCompanyData(company.getId(), company.getName(), company.getWebsite(),
-                company.getLocation(), company.getBudget(), company.getDepartments());
+        companyRepository.updateCompanyData(
+                company.getId(),
+                company.getName(),
+                company.getWebsite(),
+                company.getLocation(),
+                company.getBudget());
     }
 
     @Override

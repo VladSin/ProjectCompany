@@ -2,7 +2,8 @@ package com.example.projectCompany.controller.fxml;
 
 import com.example.projectCompany.controller.CompanyUtilApi;
 import com.example.projectCompany.controller.config.CompanyApiConfig;
-import com.example.projectCompany.entity.Company;
+import com.example.projectCompany.dto.request.CompanyRequestDto;
+import com.example.projectCompany.dto.response.CompanyResponseDto;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,11 +16,11 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
+import retrofit2.Call;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.List;
 
 @Component
 @FxmlView("mainCompany.fxml")
@@ -49,17 +50,17 @@ public class CompanyFxmlController {
     private TextField tfBudget;
 
     @FXML
-    private TableView<Company> tvCompany;
+    private TableView<CompanyResponseDto> tvCompany;
     @FXML
-    private TableColumn<Company, Long> colId;
+    private TableColumn<CompanyResponseDto, Long> colId;
     @FXML
-    private TableColumn<Company, String> colName;
+    private TableColumn<CompanyResponseDto, String> colName;
     @FXML
-    private TableColumn<Company, String> colLocation;
+    private TableColumn<CompanyResponseDto, String> colLocation;
     @FXML
-    private TableColumn<Company, String> colWebSite;
+    private TableColumn<CompanyResponseDto, String> colWebSite;
     @FXML
-    private TableColumn<Company, Double> colBudget;
+    private TableColumn<CompanyResponseDto, Double> colBudget;
 
     @FXML
     private Button btnInsert;
@@ -69,48 +70,65 @@ public class CompanyFxmlController {
     private Button btnDelete;
 
     @FXML
-    private void handleButtonAction(ActionEvent event) {
+    private void handleButtonAction(ActionEvent event) throws IOException {
 
-        if(event.getSource() == btnInsert){
+        if (event.getSource() == btnInsert) {
             insertRecord();
-        }else if (event.getSource() == btnUpdate){
+        } else if (event.getSource() == btnUpdate) {
             updateRecord();
-        }else if(event.getSource() == btnDelete){
+        } else if (event.getSource() == btnDelete) {
             deleteButton();
         }
 
     }
 
     @FXML
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize() throws IOException {
         showCompanies();
     }
 
-    public ObservableList<Company> getCompaniesList() {
-        return null;
-    }
+    public void showCompanies() throws IOException {
+        ObservableList<CompanyResponseDto> list = (ObservableList<CompanyResponseDto>) getCompaniesList();
 
-    public void showCompanies() {
-        ObservableList<Company> list = getCompaniesList();
-
-        colId.setCellValueFactory(new PropertyValueFactory<Company, Long>("id"));
-        colName.setCellValueFactory(new PropertyValueFactory<Company, String>("name"));
-        colLocation.setCellValueFactory(new PropertyValueFactory<Company, String>("location"));
-        colWebSite.setCellValueFactory(new PropertyValueFactory<Company, String>("website"));
-        colBudget.setCellValueFactory(new PropertyValueFactory<Company, Double>("budget"));
+        colId.setCellValueFactory(new PropertyValueFactory<CompanyResponseDto, Long>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<CompanyResponseDto, String>("name"));
+        colLocation.setCellValueFactory(new PropertyValueFactory<CompanyResponseDto, String>("location"));
+        colWebSite.setCellValueFactory(new PropertyValueFactory<CompanyResponseDto, String>("website"));
+        colBudget.setCellValueFactory(new PropertyValueFactory<CompanyResponseDto, Double>("budget"));
 
         tvCompany.setItems(list);
     }
 
-    private void insertRecord() {
+    public List<CompanyResponseDto> getCompaniesList() throws IOException {
+        Call<List<CompanyResponseDto>> response = api.getAllCompany();
+        return response.execute().body();
+    }
+
+    private void insertRecord() throws IOException {
+        CompanyRequestDto request = new CompanyRequestDto();
+        request.setName(tfName.getText());
+        request.setLocation(tfLocation.getText());
+        request.setWebsite(tfWebSite.getText());
+        request.setBudget(Double.parseDouble(tfBudget.getText()));
+
+        api.saveCompany(request);
         showCompanies();
     }
 
-    private void updateRecord() {
+    private void updateRecord() throws IOException {
+        CompanyRequestDto request = new CompanyRequestDto();
+        request.setId(Long.parseLong(tfId.getText()));
+        request.setName(tfName.getText());
+        request.setLocation(tfLocation.getText());
+        request.setWebsite(tfWebSite.getText());
+        request.setBudget(Double.parseDouble(tfBudget.getText()));
+
+        api.updateCompanyData(request.getId(), request);
         showCompanies();
     }
 
-    private void deleteButton() {
+    private void deleteButton() throws IOException {
+        api.deleteCompany(Long.parseLong(tfId.getText()));
         showCompanies();
     }
 

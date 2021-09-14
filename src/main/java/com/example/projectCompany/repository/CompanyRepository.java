@@ -41,11 +41,10 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query(value = "update Company set name = :name, website = :website, location = :location, " +
-            "budget = :budget, departments =:departments where id = :id")
+            "budget = :budget where id = :id")
     void updateCompanyData(@Param("id") Long id,
                             @Param("name") String name,
                             @Param("website") String website,
                             @Param("location") String location,
-                            @Param("budget") double budget,
-                            @Param("department") List<Department> departments);
+                            @Param("budget") double budget);
 }

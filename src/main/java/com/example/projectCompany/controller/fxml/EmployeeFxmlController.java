@@ -2,7 +2,8 @@ package com.example.projectCompany.controller.fxml;
 
 import com.example.projectCompany.controller.EmployeeUtilApi;
 import com.example.projectCompany.controller.config.EmployeeApiConfig;
-import com.example.projectCompany.entity.Employee;
+import com.example.projectCompany.dto.request.EmployeeRequestDto;
+import com.example.projectCompany.dto.response.EmployeeResponseDto;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
+import retrofit2.Call;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,19 +52,19 @@ public class EmployeeFxmlController {
     private TextField tfDepartment;
 
     @FXML
-    private TableView<Employee> tvEmployees;
+    private TableView<EmployeeResponseDto> tvEmployees;
     @FXML
-    private TableColumn<Employee, Long> colId;
+    private TableColumn<EmployeeResponseDto, Long> colId;
     @FXML
-    private TableColumn<Employee, String> colUsername;
+    private TableColumn<EmployeeResponseDto, String> colUsername;
     @FXML
-    private TableColumn<Employee, String> colEmail;
+    private TableColumn<EmployeeResponseDto, String> colEmail;
     @FXML
-    private TableColumn<Employee, Boolean> colMarried;
+    private TableColumn<EmployeeResponseDto, Boolean> colMarried;
     @FXML
-    private TableColumn<Employee, Double> colSalary;
+    private TableColumn<EmployeeResponseDto, Double> colSalary;
     @FXML
-    private TableColumn<Employee, String> colDepartment;
+    private TableColumn<EmployeeResponseDto, String> colDepartment;
 
     @FXML
     private Button btnInsert;
@@ -72,7 +74,7 @@ public class EmployeeFxmlController {
     private Button btnDelete;
 
     @FXML
-    private void handleButtonAction(ActionEvent event) {
+    private void handleButtonAction(ActionEvent event) throws IOException {
 
         if (event.getSource() == btnInsert) {
             insertRecord();
@@ -85,55 +87,57 @@ public class EmployeeFxmlController {
     }
 
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException {
         showEmployees();
     }
 
-    public List<Employee> getEmployeesList() {
-        //return employeeService.getAll();
-        return null;
+    public void showEmployees() throws IOException {
+        ObservableList<EmployeeResponseDto> list = (ObservableList<EmployeeResponseDto>) getEmployeesList();
+
+        colId.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, Long>("id"));
+        colUsername.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, String>("username"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, String>("email"));
+        colMarried.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, Boolean>("married"));
+        colSalary.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, Double>("salary"));
+        colDepartment.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, String>("department"));
+
+        tvEmployees.setItems(list);
     }
 
-    public void showEmployees() {
-        List<Employee> list = getEmployeesList();
-
-        colId.setCellValueFactory(new PropertyValueFactory<Employee, Long>("id"));
-        colUsername.setCellValueFactory(new PropertyValueFactory<Employee, String>("username"));
-        colEmail.setCellValueFactory(new PropertyValueFactory<Employee, String>("email"));
-        colMarried.setCellValueFactory(new PropertyValueFactory<Employee, Boolean>("married"));
-        colSalary.setCellValueFactory(new PropertyValueFactory<Employee, Double>("salary"));
-        colDepartment.setCellValueFactory(new PropertyValueFactory<Employee, String>("department"));
-
-        tvEmployees.setItems((ObservableList<Employee>) list);
+    public List<EmployeeResponseDto> getEmployeesList() throws IOException {
+        Call<List<EmployeeResponseDto>> response = api.getAllEmployee();
+        return response.execute().body();
     }
 
-    private void insertRecord() {
-        //Department department = departmentTransactionController.getDepartmentByName(tfDepartment.getText());
-        Employee newEmployee = new Employee(null,
-                tfUsername.getText(),
-                tfEmail.getText(),
-                Double.parseDouble(tfSalary.getText()),
-                Boolean.parseBoolean(tfMarried.getText()),
-                null);
-        //employeeService.saveEmployee(newEmployee);
+    private void insertRecord() throws IOException {
+
+        EmployeeRequestDto request = new EmployeeRequestDto();
+        request.setUsername(tfUsername.getText());
+        request.setEmail(tfEmail.getText());
+        request.setSalary(Double.parseDouble(tfSalary.getText()));
+        request.setMarried(Boolean.parseBoolean(tfMarried.getText()));
+        request.setDepartment(tfDepartment.getText());
+
+        api.saveEmployee(request);
         showEmployees();
     }
 
-    private void updateRecord() {
-        //Department department = departmentTransactionController.getDepartmentByName(tfDepartment.getText());
-        Employee updateEmployee = new Employee(
-                Long.parseLong(tfId.getText()),
-                tfUsername.getText(),
-                tfEmail.getText(),
-                Double.parseDouble(tfSalary.getText()),
-                Boolean.parseBoolean(tfMarried.getText()),
-                null);
-        //employeeService.updateEmployeeData(updateEmployee);
+    private void updateRecord() throws IOException {
+
+        EmployeeRequestDto request = new EmployeeRequestDto();
+        request.setId(Long.parseLong(tfId.getText()));
+        request.setUsername(tfUsername.getText());
+        request.setEmail(tfEmail.getText());
+        request.setSalary(Double.parseDouble(tfSalary.getText()));
+        request.setMarried(Boolean.parseBoolean(tfMarried.getText()));
+        request.setDepartment(tfDepartment.getText());
+
+        api.updateEmployeeData(request.getId(), request);
         showEmployees();
     }
 
-    private void deleteButton() {
-        //employeeService.deleteEmployee(Long.parseLong(tfId.getText()));
+    private void deleteButton() throws IOException {
+        api.deleteEmployee(Long.parseLong(tfId.getText()));
         showEmployees();
     }
 

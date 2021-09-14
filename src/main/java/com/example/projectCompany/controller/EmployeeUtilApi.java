@@ -22,7 +22,7 @@ public interface EmployeeUtilApi {
     Call<EmployeeResponseDto> getEmployeeByEmail(@Query("email") String email);
 
     @GET("/employee/get/all")
-    Call<List<EmployeeResponseDto>> getAll();
+    Call<List<EmployeeResponseDto>> getAllEmployee();
 
     @GET("/employee/get/all/married")
     Call<List<EmployeeResponseDto>> getAllByMarried(@Query("married") boolean married);
@@ -41,7 +41,7 @@ public interface EmployeeUtilApi {
     Call<List<EmployeeResponseDto>> getAllByDepartment(@Query("department") String department);
 
     @POST("/employee/update")
-    void updateEmployeeData(@Body EmployeeRequestDto employee);
+    void updateEmployeeData(@Query("id") Long id, @Body EmployeeRequestDto employee);
 
     @DELETE("/employee/delete")
     void deleteEmployee(@Query("id") Long id);

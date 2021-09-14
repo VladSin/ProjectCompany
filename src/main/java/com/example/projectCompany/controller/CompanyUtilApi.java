@@ -1,7 +1,7 @@
 package com.example.projectCompany.controller;
 
 import com.example.projectCompany.dto.request.CompanyRequestDto;
-import com.example.projectCompany.entity.Company;
+import com.example.projectCompany.dto.response.CompanyResponseDto;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -10,22 +10,22 @@ import java.util.List;
 public interface CompanyUtilApi {
 
     @POST("/company/save")
-    Call<Company> saveCompany(@Body CompanyRequestDto company);
+    Call<CompanyResponseDto> saveCompany(@Body CompanyRequestDto company);
 
     @GET("/company/get/id/")
-    Call<Company> getCompanyById(@Query("id") Long id);
+    Call<CompanyResponseDto> getCompanyById(@Query("id") Long id);
 
     @GET("/company/get/name/")
-    Call<Company> getCompanyByName(@Query("name") String name);
+    Call<CompanyResponseDto> getCompanyByName(@Query("name") String name);
 
     @GET("/company/get/all/location")
-    Call<List<Company>> getAllCompanyByLocation(@Query("location") String location);
+    Call<List<CompanyResponseDto>> getAllCompanyByLocation(@Query("location") String location);
 
     @GET("/company/get/all")
-    Call<List<Company>> getAllCompany();
+    Call<List<CompanyResponseDto>> getAllCompany();
 
     @POST("/company/update")
-    void updateCompanyData(@Body CompanyRequestDto company);
+    void updateCompanyData(@Query("id") Long id, @Body CompanyRequestDto company);
 
     @DELETE("/company/delete")
     void deleteCompany(@Query("id") Long id);

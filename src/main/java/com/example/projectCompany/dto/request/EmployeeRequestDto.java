@@ -1,6 +1,5 @@
 package com.example.projectCompany.dto.request;
 
-import com.example.projectCompany.dto.response.EmployeeResponseDto;
 import com.example.projectCompany.entity.Department;
 import com.example.projectCompany.entity.Employee;
 import lombok.Data;

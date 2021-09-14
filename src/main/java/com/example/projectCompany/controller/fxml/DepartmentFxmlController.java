@@ -2,7 +2,8 @@ package com.example.projectCompany.controller.fxml;
 
 import com.example.projectCompany.controller.DepartmentUtilApi;
 import com.example.projectCompany.controller.config.DepartmentApiConfig;
-import com.example.projectCompany.entity.Department;
+import com.example.projectCompany.dto.request.DepartmentRequestDto;
+import com.example.projectCompany.dto.response.DepartmentResponseDto;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,11 +16,11 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
+import retrofit2.Call;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.List;
 
 @Component
 @FxmlView("mainDepartment.fxml")
@@ -49,17 +50,17 @@ public class DepartmentFxmlController {
     private TextField tfCompany;
 
     @FXML
-    private TableView<Department> tvDepartment;
+    private TableView<DepartmentResponseDto> tvDepartment;
     @FXML
-    private TableColumn<Department, Long> colId;
+    private TableColumn<DepartmentResponseDto, Long> colId;
     @FXML
-    private TableColumn<Department, String> colName;
+    private TableColumn<DepartmentResponseDto, String> colName;
     @FXML
-    private TableColumn<Department, String> colLocation;
+    private TableColumn<DepartmentResponseDto, String> colLocation;
     @FXML
-    private TableColumn<Department, String> colWebSite;
+    private TableColumn<DepartmentResponseDto, String> colWebSite;
     @FXML
-    private TableColumn<Department, String> colCompany;
+    private TableColumn<DepartmentResponseDto, String> colCompany;
 
     @FXML
     private Button btnInsert;
@@ -69,7 +70,7 @@ public class DepartmentFxmlController {
     private Button btnDelete;
 
     @FXML
-    private void handleButtonAction(ActionEvent event) {
+    private void handleButtonAction(ActionEvent event) throws IOException {
 
         if (event.getSource() == btnInsert) {
             insertRecord();
@@ -82,35 +83,52 @@ public class DepartmentFxmlController {
     }
 
     @FXML
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize() throws IOException {
         showDepartments();
     }
 
-    public ObservableList<Department> getDepartmentsList() {
-        return null;
-    }
+    public void showDepartments() throws IOException {
+        ObservableList<DepartmentResponseDto> list = (ObservableList<DepartmentResponseDto>) getDepartmentsList();
 
-    public void showDepartments() {
-        ObservableList<Department> list = getDepartmentsList();
-
-        colId.setCellValueFactory(new PropertyValueFactory<Department, Long>("id"));
-        colName.setCellValueFactory(new PropertyValueFactory<Department, String>("name"));
-        colLocation.setCellValueFactory(new PropertyValueFactory<Department, String>("location"));
-        colWebSite.setCellValueFactory(new PropertyValueFactory<Department, String>("website"));
-        colCompany.setCellValueFactory(new PropertyValueFactory<Department, String>("company"));
+        colId.setCellValueFactory(new PropertyValueFactory<DepartmentResponseDto, Long>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<DepartmentResponseDto, String>("name"));
+        colLocation.setCellValueFactory(new PropertyValueFactory<DepartmentResponseDto, String>("location"));
+        colWebSite.setCellValueFactory(new PropertyValueFactory<DepartmentResponseDto, String>("website"));
+        colCompany.setCellValueFactory(new PropertyValueFactory<DepartmentResponseDto, String>("company"));
 
         tvDepartment.setItems(list);
     }
 
-    private void insertRecord() {
+    public List<DepartmentResponseDto> getDepartmentsList() throws IOException {
+        Call<List<DepartmentResponseDto>> response = api.getAllDepartment();
+        return response.execute().body();
+    }
+
+    private void insertRecord() throws IOException {
+        DepartmentRequestDto request = new DepartmentRequestDto();
+        request.setName(tfName.getText());
+        request.setLocation(tfLocation.getText());
+        request.setWebsite(tfWebSite.getText());
+        request.setCompany(tfCompany.getText());
+
+        api.saveDepartment(request);
         showDepartments();
     }
 
-    private void updateRecord() {
+    private void updateRecord() throws IOException {
+        DepartmentRequestDto request = new DepartmentRequestDto();
+        request.setId(Long.valueOf(tfId.getText()));
+        request.setName(tfName.getText());
+        request.setLocation(tfLocation.getText());
+        request.setWebsite(tfWebSite.getText());
+        request.setCompany(tfCompany.getText());
+
+        api.updateDepartmentData(request.getId(), request);
         showDepartments();
     }
 
-    private void deleteButton() {
+    private void deleteButton() throws IOException {
+        api.deleteDepartment(Long.valueOf(tfId.getText()));
         showDepartments();
     }
 

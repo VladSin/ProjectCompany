@@ -73,8 +73,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void updateEmployeeData(Employee employee) {
-        employeeRepository.updateEmployeeData(employee.getId(), employee.getUsername(), employee.getEmail(),
-                employee.getSalary(), employee.isMarried(), employee.getDepartment());
+        employeeRepository.updateEmployeeData(
+                employee.getId(),
+                employee.getUsername(),
+                employee.getEmail(),
+                employee.getSalary(),
+                employee.isMarried(),
+                employee.getDepartment());
     }
 
     @Override

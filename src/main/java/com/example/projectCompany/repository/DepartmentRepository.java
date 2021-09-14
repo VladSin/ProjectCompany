@@ -41,12 +41,10 @@ public interface DepartmentRepository extends JpaRepository<Department, Long> {
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "update Department set name = :name, website = :website, location = :location, " +
-            "company = :company, employees =:employees where id = :id")
+    @Query(value = "update Department set name = :name, website = :website, location = :location, company = :company where id = :id")
     void updateDepartmentData(@Param("id") Long id,
-                            @Param("name") String name,
-                            @Param("website") String website,
-                            @Param("location") String location,
-                            @Param("company") Company company,
-                            @Param("employees") List<Employee> employees);
+                              @Param("name") String name,
+                              @Param("website") String website,
+                              @Param("location") String location,
+                              @Param("company") Company company);
 }

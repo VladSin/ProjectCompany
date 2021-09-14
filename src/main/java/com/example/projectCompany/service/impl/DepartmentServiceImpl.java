@@ -51,8 +51,7 @@ public class DepartmentServiceImpl implements DepartmentService {
                 department.getName(),
                 department.getWebsite(),
                 department.getLocation(),
-                department.getCompany(),
-                department.getEmployees());
+                department.getCompany());
     }
 
     @Override
