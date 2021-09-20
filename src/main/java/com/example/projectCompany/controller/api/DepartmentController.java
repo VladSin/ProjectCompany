@@ -34,7 +34,7 @@ public class DepartmentController {
 
         if (request == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } else if (departmentService.uniqueName(request.getName())) {
+        } else if (!departmentService.uniqueName(request.getName())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -97,9 +97,9 @@ public class DepartmentController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("delete/{id}")
-    public void deleteDepartment(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteDepartment(@PathVariable("id") Long id) {
         departmentService.deleteDepartment(id);
+        return new ResponseEntity<>("Department DELETED", HttpStatus.OK);
     }
 }

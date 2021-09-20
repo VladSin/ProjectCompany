@@ -4,6 +4,7 @@ import com.example.projectCompany.controller.CompanyUtilApi;
 import com.example.projectCompany.controller.config.CompanyApiConfig;
 import com.example.projectCompany.dto.request.CompanyRequestDto;
 import com.example.projectCompany.dto.response.CompanyResponseDto;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,7 +24,7 @@ import java.io.InputStream;
 import java.util.List;
 
 @Component
-@FxmlView("mainCompany.fxml")
+@FxmlView("/fxml/mainCompany.fxml")
 public class CompanyFxmlController {
 
     private final CompanyUtilApi api = CompanyApiConfig.getApi();
@@ -88,7 +89,8 @@ public class CompanyFxmlController {
     }
 
     public void showCompanies() throws IOException {
-        ObservableList<CompanyResponseDto> list = (ObservableList<CompanyResponseDto>) getCompaniesList();
+        ObservableList<CompanyResponseDto> list =
+                FXCollections.observableArrayList(getCompaniesList());
 
         colId.setCellValueFactory(new PropertyValueFactory<CompanyResponseDto, Long>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<CompanyResponseDto, String>("name"));
@@ -111,7 +113,9 @@ public class CompanyFxmlController {
         request.setWebsite(tfWebSite.getText());
         request.setBudget(Double.parseDouble(tfBudget.getText()));
 
-        api.saveCompany(request);
+        Call<CompanyResponseDto> response = api.saveCompany(request);
+        System.out.println(response.request());
+        System.out.println(response.execute().body());
         showCompanies();
     }
 
@@ -123,12 +127,16 @@ public class CompanyFxmlController {
         request.setWebsite(tfWebSite.getText());
         request.setBudget(Double.parseDouble(tfBudget.getText()));
 
-        api.updateCompanyData(request.getId(), request);
+        Call<CompanyResponseDto> response = api.updateCompanyData(request.getId(), request);
+        System.out.println(response.request());
+        System.out.println(response.execute().body());
         showCompanies();
     }
 
     private void deleteButton() throws IOException {
-        api.deleteCompany(Long.parseLong(tfId.getText()));
+        Call<String> response = api.deleteCompany(Long.parseLong(tfId.getText()));
+        System.out.println(response.request());
+        System.out.println(response.execute().body());
         showCompanies();
     }
 

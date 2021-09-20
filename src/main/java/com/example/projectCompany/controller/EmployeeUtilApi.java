@@ -12,37 +12,37 @@ public interface EmployeeUtilApi {
     @POST("/employee/save")
     Call<EmployeeResponseDto> saveEmployee(@Body EmployeeRequestDto employee);
 
-    @GET("/employee/get/id/")
-    Call<EmployeeResponseDto> getEmployeeById(@Query("id") Long id);
+    @GET("/employee/get/id/{id}")
+    Call<EmployeeResponseDto> getEmployeeById(@Path("id") Long id);
 
-    @GET("/employee/get/username/")
-    Call<EmployeeResponseDto> getEmployeeByUsername(@Query("username") String username);
+    @GET("/employee/get/username/{username}")
+    Call<EmployeeResponseDto> getEmployeeByUsername(@Path("username") String username);
 
-    @GET("/employee/get/email/")
-    Call<EmployeeResponseDto> getEmployeeByEmail(@Query("email") String email);
+    @GET("/employee/get/email/{email}")
+    Call<EmployeeResponseDto> getEmployeeByEmail(@Path("email") String email);
 
     @GET("/employee/get/all")
     Call<List<EmployeeResponseDto>> getAllEmployee();
 
-    @GET("/employee/get/all/married")
-    Call<List<EmployeeResponseDto>> getAllByMarried(@Query("married") boolean married);
+    @GET("/employee/get/all/married/{married}")
+    Call<List<EmployeeResponseDto>> getAllByMarried(@Path("married") boolean married);
 
-    @GET("/employee/get/all/salary/after")
-    Call<List<EmployeeResponseDto>> getAllBySalaryAfter(@Query("salary") double salary);
+    @GET("/employee/get/all/salary/after/{salary}")
+    Call<List<EmployeeResponseDto>> getAllBySalaryAfter(@Path("salary") double salary);
 
-    @GET("/employee/get/all/salary/before")
-    Call<List<EmployeeResponseDto>> getAllBySalaryBefore(@Query("salary") double salary);
+    @GET("/employee/get/all/salary/before/{salary}")
+    Call<List<EmployeeResponseDto>> getAllBySalaryBefore(@Path("salary") double salary);
 
-    @GET("/employee/get/all/salary/between")
-    Call<List<EmployeeResponseDto>> getAllBySalaryBetween(@Query("minSalary") double minSalary,
-                                                          @Query("maxSalary") double maxSalary);
+    @GET("/employee/get/all/salary/between/{minSalary}/{maxSalary}")
+    Call<List<EmployeeResponseDto>> getAllBySalaryBetween(@Path("minSalary") double minSalary,
+                                                          @Path("maxSalary") double maxSalary);
 
-    @GET("/employee/get/all/department")
-    Call<List<EmployeeResponseDto>> getAllByDepartment(@Query("department") String department);
+    @GET("/employee/get/all/department/{department}")
+    Call<List<EmployeeResponseDto>> getAllByDepartment(@Path("department") String department);
 
-    @POST("/employee/update")
-    void updateEmployeeData(@Query("id") Long id, @Body EmployeeRequestDto employee);
+    @PATCH("/employee/update/{id}")
+    Call<EmployeeResponseDto> updateEmployeeData(@Path("id") Long id, @Body EmployeeRequestDto employee);
 
-    @DELETE("/employee/delete")
-    void deleteEmployee(@Query("id") Long id);
+    @DELETE("/employee/delete/{id}")
+    Call<String> deleteEmployee(@Path("id") Long id);
 }

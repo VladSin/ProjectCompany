@@ -3,13 +3,14 @@ package com.example.projectCompany;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 public class JavaFXApplication extends Application {
@@ -28,16 +29,25 @@ public class JavaFXApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         String fxmlFile = "/fxml/index.fxml";
-        FXMLLoader loader = new FXMLLoader();
-        Parent root = (Parent) loader.load(getClass().getResourceAsStream(fxmlFile));
 
         InputStream iconStream = getClass().getResourceAsStream("/icon/bird.png");
         Image image = new Image(iconStream);
         primaryStage.getIcons().add(image);
 
         primaryStage.setTitle("VladSin Company");
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(createScene(loadMainPane(fxmlFile)));
         primaryStage.show();
+    }
+
+    private Pane loadMainPane(String path) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        Pane mainPane = (Pane) loader.load(getClass().getResourceAsStream(path));
+        return mainPane;
+    }
+
+    private Scene createScene(Pane mainPane) {
+        Scene scene = new Scene(mainPane);
+        return scene;
     }
 
     @Override

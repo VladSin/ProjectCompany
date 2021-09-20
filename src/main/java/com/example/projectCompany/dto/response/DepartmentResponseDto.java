@@ -22,7 +22,11 @@ public class DepartmentResponseDto {
         response.setName(department.getName());
         response.setWebsite(department.getWebsite());
         response.setLocation(department.getLocation());
-        response.setCompany(department.getCompany().getName());
+        if (response.getCompany() == null){
+            response.setCompany("null");
+        } else {
+            response.setCompany(department.getCompany().getName());
+        }
         return response;
     }
 }

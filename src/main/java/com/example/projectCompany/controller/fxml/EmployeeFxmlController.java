@@ -4,27 +4,32 @@ import com.example.projectCompany.controller.EmployeeUtilApi;
 import com.example.projectCompany.controller.config.EmployeeApiConfig;
 import com.example.projectCompany.dto.request.EmployeeRequestDto;
 import com.example.projectCompany.dto.response.EmployeeResponseDto;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import lombok.SneakyThrows;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 import retrofit2.Call;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
 @Component
-@FxmlView("mainEmployee.fxml")
-public class EmployeeFxmlController {
+@FxmlView("/fxml/mainEmployee.fxml")
+public class EmployeeFxmlController implements Initializable {
 
     private final EmployeeUtilApi api = EmployeeApiConfig.getApi();
 
@@ -86,13 +91,15 @@ public class EmployeeFxmlController {
 
     }
 
-    @FXML
-    public void initialize() throws IOException {
+    @SneakyThrows
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         showEmployees();
     }
 
     public void showEmployees() throws IOException {
-        ObservableList<EmployeeResponseDto> list = (ObservableList<EmployeeResponseDto>) getEmployeesList();
+        ObservableList<EmployeeResponseDto> list =
+                FXCollections.observableArrayList(getEmployeesList());
 
         colId.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, Long>("id"));
         colUsername.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, String>("username"));
@@ -109,6 +116,7 @@ public class EmployeeFxmlController {
         return response.execute().body();
     }
 
+    @FXML
     private void insertRecord() throws IOException {
 
         EmployeeRequestDto request = new EmployeeRequestDto();
@@ -118,10 +126,13 @@ public class EmployeeFxmlController {
         request.setMarried(Boolean.parseBoolean(tfMarried.getText()));
         request.setDepartment(tfDepartment.getText());
 
-        api.saveEmployee(request);
+        Call<EmployeeResponseDto> response = api.saveEmployee(request);
+        System.out.println(response.request());
+        System.out.println(response.execute().body());
         showEmployees();
     }
 
+    @FXML
     private void updateRecord() throws IOException {
 
         EmployeeRequestDto request = new EmployeeRequestDto();
@@ -131,13 +142,17 @@ public class EmployeeFxmlController {
         request.setSalary(Double.parseDouble(tfSalary.getText()));
         request.setMarried(Boolean.parseBoolean(tfMarried.getText()));
         request.setDepartment(tfDepartment.getText());
-
-        api.updateEmployeeData(request.getId(), request);
+        Call<EmployeeResponseDto> response = api.updateEmployeeData(Long.valueOf(tfId.getText()), request);
+        System.out.println(response.request());
+        System.out.println(response.execute().body());
         showEmployees();
     }
 
+    @FXML
     private void deleteButton() throws IOException {
-        api.deleteEmployee(Long.parseLong(tfId.getText()));
+        Call<String> response = api.deleteEmployee(Long.valueOf(tfId.getText()));
+        System.out.println(response.request());
+        System.out.println(response.execute().body());
         showEmployees();
     }
 
@@ -155,6 +170,7 @@ public class EmployeeFxmlController {
     }
 
     public void redirectToAnotherWindow(ActionEvent event, String url) throws IOException {
+
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
         Parent root = (Parent) loader.load(getClass().getResourceAsStream(url));

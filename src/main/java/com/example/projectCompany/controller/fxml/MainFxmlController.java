@@ -3,10 +3,12 @@ package com.example.projectCompany.controller.fxml;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
@@ -15,7 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Component
-@FxmlView("index.fxml")
+@FxmlView("/fxml/index.fxml")
 public class MainFxmlController {
 
     @FXML
@@ -26,6 +28,24 @@ public class MainFxmlController {
     private MenuItem miDepartment;
     @FXML
     private MenuItem miEmployee;
+
+    @FXML
+    private static StackPane stackPaneHolder;
+
+    public static void setPane(Node node) {
+        if (!stackPaneHolder.getChildren().isEmpty()) {
+            //if stackPaneHolder is empty
+            stackPaneHolder.getChildren().add(node);
+
+
+        } else {
+            if (stackPaneHolder.getClip() != node) {
+                //if stackPaneHolder is not empty then remove existing layer and add new layer
+                stackPaneHolder.getChildren().remove(0);
+                stackPaneHolder.getChildren().add(0, node);
+            }
+        }
+    }
 
     public void menuHandleButtonAction(ActionEvent event) throws IOException {
 

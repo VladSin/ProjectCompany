@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Component
-@FxmlView("infoCompany.fxml")
+@FxmlView("/fxml/infoCompany.fxml")
 public class ExpansionCompanyFxmlController {
 
     private final CompanyUtilApi api = CompanyApiConfig.getApi();

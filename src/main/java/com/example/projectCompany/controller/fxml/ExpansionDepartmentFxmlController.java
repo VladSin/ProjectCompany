@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Component
-@FxmlView("infoDepartment.fxml")
+@FxmlView("/fxml/infoDepartment.fxml")
 public class ExpansionDepartmentFxmlController {
 
     private final DepartmentUtilApi api = DepartmentApiConfig.getApi();

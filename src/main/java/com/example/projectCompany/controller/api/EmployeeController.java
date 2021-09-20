@@ -3,7 +3,6 @@ package com.example.projectCompany.controller.api;
 import com.example.projectCompany.dto.request.EmployeeRequestDto;
 import com.example.projectCompany.dto.response.EmployeeResponseDto;
 import com.example.projectCompany.entity.Employee;
-import com.example.projectCompany.exeption.UsernameNotFoundException;
 import com.example.projectCompany.service.DepartmentService;
 import com.example.projectCompany.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +27,9 @@ public class EmployeeController {
     }
 
     @PostMapping("save")
-    public ResponseEntity<EmployeeResponseDto> saveEmployee(@RequestBody EmployeeRequestDto request) throws UsernameNotFoundException {
+    public ResponseEntity<EmployeeResponseDto> saveEmployee(@RequestBody EmployeeRequestDto request) {
 
         if (request == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } else if (employeeService.checkEmail(request.getEmail())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -138,14 +135,13 @@ public class EmployeeController {
         employeeService.updateEmployeeData(EmployeeRequestDto.fromRequestEmployee(request,
                 departmentService.getDepartmentByName(request.getDepartment())));
 
-        EmployeeResponseDto response = EmployeeResponseDto.fromEmployee(employeeService.getEmployeeByEmail(
-                request.getEmail()));
+        EmployeeResponseDto response = EmployeeResponseDto.fromEmployee(employeeService.getEmployeeByEmail(request.getEmail()));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("delete/{id}")
-    public void deleteEmployee(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteEmployee(@PathVariable("id") Long id) {
         employeeService.deleteEmployee(id);
+        return new ResponseEntity<>("Employee DELETED", HttpStatus.OK);
     }
 }

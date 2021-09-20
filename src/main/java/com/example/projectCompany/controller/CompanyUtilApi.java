@@ -12,21 +12,21 @@ public interface CompanyUtilApi {
     @POST("/company/save")
     Call<CompanyResponseDto> saveCompany(@Body CompanyRequestDto company);
 
-    @GET("/company/get/id/")
-    Call<CompanyResponseDto> getCompanyById(@Query("id") Long id);
+    @GET("/company/get/id/{id}")
+    Call<CompanyResponseDto> getCompanyById(@Path("id") Long id);
 
-    @GET("/company/get/name/")
-    Call<CompanyResponseDto> getCompanyByName(@Query("name") String name);
+    @GET("/company/get/name/{name}")
+    Call<CompanyResponseDto> getCompanyByName(@Path("name") String name);
 
-    @GET("/company/get/all/location")
-    Call<List<CompanyResponseDto>> getAllCompanyByLocation(@Query("location") String location);
+    @GET("/company/get/all/location/{locations}")
+    Call<List<CompanyResponseDto>> getAllCompanyByLocation(@Path("location") String location);
 
     @GET("/company/get/all")
     Call<List<CompanyResponseDto>> getAllCompany();
 
-    @POST("/company/update")
-    void updateCompanyData(@Query("id") Long id, @Body CompanyRequestDto company);
+    @PATCH("/company/update/{id}")
+    Call<CompanyResponseDto> updateCompanyData(@Path("id") Long id, @Body CompanyRequestDto company);
 
-    @DELETE("/company/delete")
-    void deleteCompany(@Query("id") Long id);
+    @DELETE("/company/delete/{id}")
+    Call<String> deleteCompany(@Path("id") Long id);
 }

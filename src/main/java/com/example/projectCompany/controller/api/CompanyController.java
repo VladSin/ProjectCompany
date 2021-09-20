@@ -28,7 +28,7 @@ public class CompanyController {
 
         if (request == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } else if (companyService.uniqueName(request.getName())) {
+        } else if (!companyService.uniqueName(request.getName())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -90,9 +90,9 @@ public class CompanyController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("delete/{id}")
-    public void deleteCompany(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteCompany(@PathVariable("id") Long id) {
         companyService.deleteCompany(id);
+        return new ResponseEntity<>("Company DELETED", HttpStatus.OK);
     }
 }

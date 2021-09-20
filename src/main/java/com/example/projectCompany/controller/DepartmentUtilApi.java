@@ -12,21 +12,21 @@ public interface DepartmentUtilApi {
     @POST("/department/save")
     Call<DepartmentResponseDto> saveDepartment(@Body DepartmentRequestDto department);
 
-    @GET("/department/get/id/")
-    Call<DepartmentResponseDto> getDepartmentById(@Query("id") Long id);
+    @GET("/department/get/id/{id}")
+    Call<DepartmentResponseDto> getDepartmentById(@Path("id") Long id);
 
-    @GET("/department/get/name/")
-    Call<DepartmentResponseDto> getDepartmentByName(@Query("name") String name);
+    @GET("/department/get/name/{username}")
+    Call<DepartmentResponseDto> getDepartmentByName(@Path("name") String name);
 
-    @GET("/department/get/all/location")
-    Call<List<DepartmentResponseDto>> getAllDepartmentByLocation(@Query("location") String location);
+    @GET("/department/get/all/location/{locations}")
+    Call<List<DepartmentResponseDto>> getAllDepartmentByLocation(@Path("location") String location);
 
     @GET("/department/get/all")
     Call<List<DepartmentResponseDto>> getAllDepartment();
 
-    @POST("/department/update")
-    void updateDepartmentData(@Query("id") Long id, @Body DepartmentRequestDto department);
+    @PATCH("/department/update/{id}")
+    Call<DepartmentResponseDto> updateDepartmentData(@Path("id") Long id, @Body DepartmentRequestDto department);
 
-    @DELETE("/department/delete")
-    void deleteDepartment(@Query("id") Long id);
+    @DELETE("/department/delete/{id}")
+    Call<String> deleteDepartment(@Path("id") Long id);
 }

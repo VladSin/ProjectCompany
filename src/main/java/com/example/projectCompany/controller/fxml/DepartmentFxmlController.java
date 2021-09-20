@@ -4,6 +4,7 @@ import com.example.projectCompany.controller.DepartmentUtilApi;
 import com.example.projectCompany.controller.config.DepartmentApiConfig;
 import com.example.projectCompany.dto.request.DepartmentRequestDto;
 import com.example.projectCompany.dto.response.DepartmentResponseDto;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,7 +24,7 @@ import java.io.InputStream;
 import java.util.List;
 
 @Component
-@FxmlView("mainDepartment.fxml")
+@FxmlView("/fxml/mainDepartment.fxml")
 public class DepartmentFxmlController {
 
     private final DepartmentUtilApi api = DepartmentApiConfig.getApi();
@@ -88,8 +89,8 @@ public class DepartmentFxmlController {
     }
 
     public void showDepartments() throws IOException {
-        ObservableList<DepartmentResponseDto> list = (ObservableList<DepartmentResponseDto>) getDepartmentsList();
-
+        ObservableList<DepartmentResponseDto> list =
+                FXCollections.observableArrayList(getDepartmentsList());
         colId.setCellValueFactory(new PropertyValueFactory<DepartmentResponseDto, Long>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<DepartmentResponseDto, String>("name"));
         colLocation.setCellValueFactory(new PropertyValueFactory<DepartmentResponseDto, String>("location"));
@@ -111,7 +112,9 @@ public class DepartmentFxmlController {
         request.setWebsite(tfWebSite.getText());
         request.setCompany(tfCompany.getText());
 
-        api.saveDepartment(request);
+        Call<DepartmentResponseDto> response = api.saveDepartment(request);
+        System.out.println(response.request());
+        System.out.println(response.execute().body());
         showDepartments();
     }
 
@@ -123,12 +126,16 @@ public class DepartmentFxmlController {
         request.setWebsite(tfWebSite.getText());
         request.setCompany(tfCompany.getText());
 
-        api.updateDepartmentData(request.getId(), request);
+        Call<DepartmentResponseDto> response = api.updateDepartmentData(request.getId(), request);
+        System.out.println(response.request());
+        System.out.println(response.execute().body());
         showDepartments();
     }
 
     private void deleteButton() throws IOException {
-        api.deleteDepartment(Long.valueOf(tfId.getText()));
+        Call<String> response = api.deleteDepartment(Long.valueOf(tfId.getText()));
+        System.out.println(response.request());
+        System.out.println(response.execute().body());
         showDepartments();
     }
 
