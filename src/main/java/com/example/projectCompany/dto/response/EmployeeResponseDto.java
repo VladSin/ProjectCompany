@@ -25,7 +25,7 @@ public class EmployeeResponseDto {
         response.setEmail(employee.getEmail());
         response.setSalary(employee.getSalary());
         response.setMarried(employee.isMarried());
-        if (response.getDepartment() == null){
+        if (employee.getDepartment() == null){
             response.setDepartment("null");
         } else {
             response.setDepartment(employee.getDepartment().getName());

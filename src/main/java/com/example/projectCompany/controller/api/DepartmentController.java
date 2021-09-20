@@ -42,7 +42,10 @@ public class DepartmentController {
         department.setName(request.getName());
         department.setWebsite(request.getWebsite());
         department.setLocation(request.getLocation());
-        department.setCompany(companyService.getCompanyByName(request.getCompany()));
+
+        if (request.getCompany() != null){
+            department.setCompany(companyService.getCompanyByName(request.getCompany()));
+        }
         departmentService.saveDepartment(department);
 
         DepartmentResponseDto response = DepartmentResponseDto.fromDepartment(departmentService.getDepartmentByName(request.getName()));
