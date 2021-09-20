@@ -1,60 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.shape.Line?>
+
 <AnchorPane id="ExpansionDepartment" prefHeight="416.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectCompany.controller.fxml.ExpansionDepartmentFxmlController">
     <children>
-        <VBox layoutX="24.0" layoutY="132.0" prefHeight="190.0" prefWidth="85.0" spacing="20.0">
-            <children>
-                <Label text="ID">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <Label text="Name">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <Label text="Location">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <Label text="WebSite">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <Label text="Company">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-            </children>
-        </VBox>
-        <VBox layoutX="115.0" layoutY="126.0" prefHeight="206.0" prefWidth="185.0" spacing="10.0">
-            <children>
-                <TextField fx:id="tfId" />
-                <TextField fx:id="tfName" />
-                <TextField fx:id="tfLocation" layoutX="10.0" layoutY="10.0" />
-                <TextField fx:id="tfWebSite" layoutX="10.0" layoutY="35.0" />
-                <TextField fx:id="tfCompany" layoutX="10.0" layoutY="85.0" />
-            </children>
-        </VBox>
-        <TableView fx:id="tvDepartment" layoutX="318.0" layoutY="54.0" prefHeight="319.0" prefWidth="650.0">
+        <TableView fx:id="tvDepartment" layoutX="331.0" layoutY="39.0" prefHeight="345.0" prefWidth="651.0">
             <columns>
                 <TableColumn fx:id="colId" prefWidth="58.0" text="ID" />
                 <TableColumn fx:id="colName" prefWidth="157.0" text="Department" />
                 <TableColumn fx:id="colLocation" prefWidth="136.0" text="Location" />
                 <TableColumn fx:id="colWebSite" prefWidth="155.0" text="WebSite" />
-                <TableColumn fx:id="colCompany" prefWidth="143.0" text="Company" />
+                <TableColumn fx:id="colCompany" prefWidth="144.0" text="Company" />
             </columns>
         </TableView>
         <MenuButton mnemonicParsing="false" text="Menu">
@@ -74,5 +39,35 @@
                 </ContextMenu>
             </contextMenu>
         </MenuButton>
+
+        <Text layoutX="24.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Information about Departments" textAlignment="CENTER">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Text>
+
+        <Text layoutX="30.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get All Departments" />
+        <Button fx:id="btnGetAll" layoutX="170.0" layoutY="95.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="112.0" onAction="#handleButtonAction" text="GET ALL" />
+
+        <Text layoutX="30.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get Department By ID" />
+        <TextField fx:id="tfGetById" layoutX="28.0" layoutY="176.0" />
+        <Button fx:id="btnGetById" layoutX="236.0" layoutY="176.0" mnemonicParsing="false" onAction="#handleButtonAction" text="GET" />
+
+        <Text layoutX="30.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get Departments By Name" />
+        <TextField fx:id="tfGetByName" layoutX="28.0" layoutY="258.0" />
+        <Button fx:id="btnGetByName" layoutX="236.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleButtonAction" text="GET" />
+
+        <Text layoutX="30.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get Departments By Location" />
+        <TextField fx:id="tfGetByLocation" layoutX="28.0" layoutY="342.0" />
+        <Button fx:id="btnGetByLocation" layoutX="236.0" layoutY="342.0" mnemonicParsing="false" onAction="#handleButtonAction" text="GET" />
+
+        <Line endX="152.0" layoutX="128.0" layoutY="136.0" startX="-100.0" />
+        <Line endX="152.0" layoutX="128.0" layoutY="220.0" startX="-100.0" />
+        <Line endX="152.0" layoutX="128.0" layoutY="299.0" startX="-100.0" />
+        <Line endX="200.0" layoutX="112.0" layoutY="81.0"  startX="-100.0" />
+        <Line endX="200.0" layoutX="111.0" layoutY="384.0" startX="-100.0" />
+        <Line endY="300.0" layoutX="11.0"  layoutY="82.0" />
+        <Line endY="300.0" layoutX="313.0" layoutY="83.0" />
+
     </children>
 </AnchorPane>

@@ -9,23 +9,27 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import lombok.SneakyThrows;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 import retrofit2.Call;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
 @Component
 @FxmlView("/fxml/mainCompany.fxml")
-public class CompanyFxmlController {
+public class CompanyFxmlController implements Initializable {
 
     private final CompanyUtilApi api = CompanyApiConfig.getApi();
 
@@ -83,8 +87,9 @@ public class CompanyFxmlController {
 
     }
 
-    @FXML
-    public void initialize() throws IOException {
+    @SneakyThrows
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         showCompanies();
     }
 

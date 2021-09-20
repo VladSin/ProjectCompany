@@ -1,60 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<AnchorPane id="ExpansionEmployee" prefHeight="416.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectCompany.controller.fxml.ExpansionEmployeeFxmlController">
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane id="ExpansionEmployee" prefHeight="730.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectCompany.controller.fxml.ExpansionEmployeeFxmlController">
     <children>
-        <VBox layoutX="24.0" layoutY="104.0" prefHeight="236.0" prefWidth="85.0" spacing="20.0">
-            <children>
-                <Label text="ID">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <Label text="Username">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <Label text="Email">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <Label text="Married">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <Label text="Salary">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <Label text="Department">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-            </children>
-        </VBox>
-        <VBox layoutX="115.0" layoutY="94.0" prefHeight="206.0" prefWidth="185.0" spacing="10.0">
-            <children>
-                <TextField fx:id="tfId" />
-                <TextField fx:id="tfUsername" />
-                <TextField fx:id="tfEmail" layoutX="10.0" layoutY="10.0" />
-                <TextField fx:id="tfMarried" layoutX="10.0" layoutY="35.0" />
-                <TextField fx:id="tfSalary" layoutX="10.0" layoutY="85.0" />
-                <TextField fx:id="tfDepartment" layoutX="10.0" layoutY="85.0" />
-            </children>
-        </VBox>
-        <TableView fx:id="tvEmployees" layoutX="318.0" layoutY="54.0" prefHeight="319.0" prefWidth="650.0">
+        <TableView fx:id="tvEmployees" layoutX="335.0" layoutY="40.0" prefHeight="653.0" prefWidth="648.0">
             <columns>
                 <TableColumn fx:id="colId" prefWidth="58.0" text="ID" />
                 <TableColumn fx:id="colUsername" prefWidth="117.0" text="Username" />
@@ -74,5 +33,56 @@
                 <Font name="System Bold" size="15.0" />
             </font>
         </MenuButton>
+
+        <Text layoutX="36.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Information about Employees" textAlignment="CENTER">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Text>
+
+        <Text layoutX="30.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get All Employees" />
+        <Button fx:id="btnGetAll" layoutX="160.0" layoutY="95.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="122.0" text="GET ALL" />
+
+        <Text layoutX="30.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get Employee By ID" />
+        <TextField fx:id="tfGetById" layoutX="28.0" layoutY="170.0" />
+        <Button fx:id="btnGetById" layoutX="236.0" layoutY="170.0" mnemonicParsing="false" text="GET" />
+
+        <Text layoutX="30.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get Employee By Email" />
+        <TextField fx:id="tfGetByEmail" layoutX="28.0" layoutY="249.0" />
+        <Button fx:id="btnGetByEmail" layoutX="236.0" layoutY="249.0" mnemonicParsing="false" text="GET" />
+
+        <Text layoutX="30.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get Employees By Married" />
+        <TextField fx:id="tfGetByMarried" layoutX="28.0" layoutY="327.0" />
+        <Button fx:id="btnGetByMarried" layoutX="236.0" layoutY="327.0" mnemonicParsing="false" text="GET" />
+
+        <Text layoutX="31.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get Employees By Department" />
+        <TextField fx:id="tfGetByDepartment" layoutX="28.0" layoutY="405.0" />
+        <Button fx:id="btnGetByDepartment" layoutX="236.0" layoutY="405.0" mnemonicParsing="false" text="GET" />
+
+        <Text layoutX="31.0" layoutY="475.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employees By Salary After" />
+        <TextField fx:id="tfGetBySalaryAfter" layoutX="28.0" layoutY="483.0" />
+        <Button fx:id="btnGetBySalaryAfter" layoutX="236.0" layoutY="483.0" mnemonicParsing="false" text="GET" />
+
+        <Text layoutX="31.0" layoutY="551.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employees By Salary Before" />
+        <TextField fx:id="tfGetBySalaryBefore" layoutX="28.0" layoutY="556.0" />
+        <Button fx:id="btnGetBySalaryBefore" layoutX="236.0" layoutY="556.0" mnemonicParsing="false" text="GET" />
+
+        <Text layoutX="58.0" layoutY="629.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employees By Salary Between" />
+        <TextField fx:id="tfGetBySalaryBetweenMin" layoutX="28.0" layoutY="641.0" prefHeight="31.0" prefWidth="98.0" />
+        <TextField fx:id="tfGetBySalaryBetweenMax" layoutX="182.0" layoutY="641.0" prefHeight="31.0" prefWidth="98.0" />
+        <Button fx:id="btnGetBySalaryBetween" layoutX="131.0" layoutY="641.0" mnemonicParsing="false" text="GET" />
+
+        <Line endX="152.0" layoutX="128.0" layoutY="136.0" startX="-100.0" />
+        <Line endX="152.0" layoutX="128.0" layoutY="214.0" startX="-100.0" />
+        <Line endX="152.0" layoutX="128.0" layoutY="290.0" startX="-100.0" />
+        <Line endX="200.0" layoutX="112.0" layoutY="81.0"  startX="-100.0" />
+        <Line endX="200.0" layoutX="111.0" layoutY="691.0" startX="-100.0" />
+        <Line endX="152.0" layoutX="130.0" layoutY="370.0" startX="-100.0" />
+        <Line endX="152.0" layoutX="128.0" layoutY="448.0" startX="-100.0" />
+        <Line endX="152.0" layoutX="129.0" layoutY="523.0" startX="-100.0" />
+        <Line endX="152.0" layoutX="128.0" layoutY="597.0" startX="-100.0" />
+        <Line endY="607.0" layoutX="11.0"  layoutY="82.0" />
+        <Line endY="607.0" layoutX="313.0" layoutY="83.0" />
+
     </children>
 </AnchorPane>

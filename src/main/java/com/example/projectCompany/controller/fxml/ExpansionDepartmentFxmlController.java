@@ -2,23 +2,26 @@ package com.example.projectCompany.controller.fxml;
 
 import com.example.projectCompany.controller.DepartmentUtilApi;
 import com.example.projectCompany.controller.config.DepartmentApiConfig;
-import com.example.projectCompany.entity.Department;
+import com.example.projectCompany.dto.response.DepartmentResponseDto;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
+import retrofit2.Call;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @FxmlView("/fxml/infoDepartment.fxml")
@@ -37,28 +40,49 @@ public class ExpansionDepartmentFxmlController {
     private MenuItem miBack;
 
     @FXML
-    private TextField tfId;
+    private TextField tfGetById;
     @FXML
-    private TextField tfName;
+    private TextField tfGetByName;
     @FXML
-    private TextField tfLocation;
-    @FXML
-    private TextField tfWebSite;
-    @FXML
-    private TextField tfCompany;
+    private TextField tfGetByLocation;
 
     @FXML
-    private TableView<Department> tvDepartment;
+    private TableView<DepartmentResponseDto> tvDepartment;
+
     @FXML
-    private TableColumn<Department, Long> colId;
+    private TableColumn<DepartmentResponseDto, Long> colId;
     @FXML
-    private TableColumn<Department, String> colName;
+    private TableColumn<DepartmentResponseDto, String> colName;
     @FXML
-    private TableColumn<Department, String> colLocation;
+    private TableColumn<DepartmentResponseDto, String> colLocation;
     @FXML
-    private TableColumn<Department, String> colWebSite;
+    private TableColumn<DepartmentResponseDto, String> colWebSite;
     @FXML
-    private TableColumn<Department, String> colCompany;
+    private TableColumn<DepartmentResponseDto, String> colCompany;
+
+    @FXML
+    private Button btnGetAll;
+    @FXML
+    private Button btnGetById;
+    @FXML
+    private Button btnGetByName;
+    @FXML
+    private Button btnGetByLocation;
+
+    @FXML
+    private void handleButtonAction(ActionEvent event) throws IOException {
+
+        if (event.getSource() == btnGetAll) {
+            getAll();
+        } else if (event.getSource() == btnGetById) {
+            getById();
+        } else if (event.getSource() == btnGetByName) {
+            getByName();
+        } else if (event.getSource() == btnGetByLocation) {
+            getAllByLocation();
+        }
+
+    }
 
     @FXML
     public void menuHandleButtonAction(ActionEvent event) throws IOException {
@@ -71,6 +95,70 @@ public class ExpansionDepartmentFxmlController {
             redirectToAnotherWindow(event, "/fxml/mainDepartment.fxml");
         }
 
+    }
+
+
+    private void getAll() throws IOException {
+        ObservableList<DepartmentResponseDto> list =
+                FXCollections.observableArrayList(getDepartmentsList());
+
+        showDepartments(list);
+    }
+
+    private void getById() throws IOException {
+        ObservableList<DepartmentResponseDto> list =
+                FXCollections.observableArrayList(getDepartmentById());
+
+        showDepartments(list);
+    }
+
+    private void getByName() throws IOException {
+        ObservableList<DepartmentResponseDto> list =
+                FXCollections.observableArrayList(getDepartmentByName());
+
+        showDepartments(list);
+    }
+
+    private void getAllByLocation() throws IOException {
+        ObservableList<DepartmentResponseDto> list =
+                FXCollections.observableArrayList(getDepartmentsListByLocation());
+
+        showDepartments(list);
+    }
+
+    public List<DepartmentResponseDto> getDepartmentsList() throws IOException {
+        Call<List<DepartmentResponseDto>> response = api.getAllDepartment();
+        return response.execute().body();
+    }
+
+    public List<DepartmentResponseDto> getDepartmentById() throws IOException {
+        Call<DepartmentResponseDto> response = api.getDepartmentById(Long.valueOf(tfGetById.getText()));
+        List<DepartmentResponseDto> list = new ArrayList<>();
+        list.add(response.execute().body());
+        return list;
+    }
+
+    public List<DepartmentResponseDto> getDepartmentByName() throws IOException {
+        Call<DepartmentResponseDto> response = api.getDepartmentByName(tfGetByName.getText());
+        List<DepartmentResponseDto> list = new ArrayList<>();
+        list.add(response.execute().body());
+        return list;
+    }
+
+    public List<DepartmentResponseDto> getDepartmentsListByLocation() throws IOException {
+        Call<List<DepartmentResponseDto>> response = api.getAllDepartmentByLocation(tfGetByLocation.getText());
+        return response.execute().body();
+    }
+
+
+    private void showDepartments(ObservableList<DepartmentResponseDto> list) {
+        colId.setCellValueFactory(new PropertyValueFactory<DepartmentResponseDto, Long>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<DepartmentResponseDto, String>("name"));
+        colLocation.setCellValueFactory(new PropertyValueFactory<DepartmentResponseDto, String>("location"));
+        colWebSite.setCellValueFactory(new PropertyValueFactory<DepartmentResponseDto, String>("website"));
+        colCompany.setCellValueFactory(new PropertyValueFactory<DepartmentResponseDto, String>("company"));
+
+        tvDepartment.setItems(list);
     }
 
     public void redirectToAnotherWindow(ActionEvent event, String url) throws IOException {
