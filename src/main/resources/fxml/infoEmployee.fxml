@@ -41,36 +41,36 @@
         </Text>
 
         <Text layoutX="30.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get All Employees" />
-        <Button fx:id="btnGetAll" layoutX="160.0" layoutY="95.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="122.0" text="GET ALL" />
+        <Button fx:id="btnGetAll" layoutX="160.0" layoutY="95.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="122.0" onAction="#handleButtonAction" text="GET ALL" />
 
         <Text layoutX="30.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get Employee By ID" />
         <TextField fx:id="tfGetById" layoutX="28.0" layoutY="170.0" />
-        <Button fx:id="btnGetById" layoutX="236.0" layoutY="170.0" mnemonicParsing="false" text="GET" />
+        <Button fx:id="btnGetById" layoutX="236.0" layoutY="170.0" mnemonicParsing="false" onAction="#handleButtonAction" text="GET" />
 
         <Text layoutX="30.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get Employee By Email" />
         <TextField fx:id="tfGetByEmail" layoutX="28.0" layoutY="249.0" />
-        <Button fx:id="btnGetByEmail" layoutX="236.0" layoutY="249.0" mnemonicParsing="false" text="GET" />
+        <Button fx:id="btnGetByEmail" layoutX="236.0" layoutY="249.0" mnemonicParsing="false" onAction="#handleButtonAction" text="GET" />
 
         <Text layoutX="30.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get Employees By Married" />
         <TextField fx:id="tfGetByMarried" layoutX="28.0" layoutY="327.0" />
-        <Button fx:id="btnGetByMarried" layoutX="236.0" layoutY="327.0" mnemonicParsing="false" text="GET" />
+        <Button fx:id="btnGetByMarried" layoutX="236.0" layoutY="327.0" mnemonicParsing="false" onAction="#handleButtonAction" text="GET" />
 
         <Text layoutX="31.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Get Employees By Department" />
         <TextField fx:id="tfGetByDepartment" layoutX="28.0" layoutY="405.0" />
-        <Button fx:id="btnGetByDepartment" layoutX="236.0" layoutY="405.0" mnemonicParsing="false" text="GET" />
+        <Button fx:id="btnGetByDepartment" layoutX="236.0" layoutY="405.0" mnemonicParsing="false" onAction="#handleButtonAction" text="GET" />
 
         <Text layoutX="31.0" layoutY="475.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employees By Salary After" />
         <TextField fx:id="tfGetBySalaryAfter" layoutX="28.0" layoutY="483.0" />
-        <Button fx:id="btnGetBySalaryAfter" layoutX="236.0" layoutY="483.0" mnemonicParsing="false" text="GET" />
+        <Button fx:id="btnGetBySalaryAfter" layoutX="236.0" layoutY="483.0" mnemonicParsing="false" onAction="#handleButtonAction" text="GET" />
 
         <Text layoutX="31.0" layoutY="551.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employees By Salary Before" />
         <TextField fx:id="tfGetBySalaryBefore" layoutX="28.0" layoutY="556.0" />
-        <Button fx:id="btnGetBySalaryBefore" layoutX="236.0" layoutY="556.0" mnemonicParsing="false" text="GET" />
+        <Button fx:id="btnGetBySalaryBefore" layoutX="236.0" layoutY="556.0" mnemonicParsing="false" onAction="#handleButtonAction" text="GET" />
 
         <Text layoutX="58.0" layoutY="629.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employees By Salary Between" />
         <TextField fx:id="tfGetBySalaryBetweenMin" layoutX="28.0" layoutY="641.0" prefHeight="31.0" prefWidth="98.0" />
         <TextField fx:id="tfGetBySalaryBetweenMax" layoutX="182.0" layoutY="641.0" prefHeight="31.0" prefWidth="98.0" />
-        <Button fx:id="btnGetBySalaryBetween" layoutX="131.0" layoutY="641.0" mnemonicParsing="false" text="GET" />
+        <Button fx:id="btnGetBySalaryBetween" layoutX="131.0" layoutY="641.0" mnemonicParsing="false" onAction="#handleButtonAction" text="GET" />
 
         <Line endX="152.0" layoutX="128.0" layoutY="136.0" startX="-100.0" />
         <Line endX="152.0" layoutX="128.0" layoutY="214.0" startX="-100.0" />

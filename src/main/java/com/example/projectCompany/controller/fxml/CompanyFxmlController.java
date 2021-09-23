@@ -36,6 +36,12 @@ public class CompanyFxmlController implements Initializable {
     public CompanyFxmlController() {
     }
 
+    @SneakyThrows
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        showCompanies();
+    }
+
     @FXML
     private MenuItem miHome;
     @FXML
@@ -87,10 +93,30 @@ public class CompanyFxmlController implements Initializable {
 
     }
 
-    @SneakyThrows
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        showCompanies();
+    @FXML
+    public void menuHandleButtonAction(ActionEvent event) throws IOException {
+
+        if (event.getSource() == miHome) {
+            redirectToAnotherWindow(event, "/fxml/index.fxml");
+        } else if (event.getSource() == miReport) {
+            openWebpage("http://localhost:8080/export/companies/excel");
+        } else if (event.getSource() == miMore) {
+            redirectToAnotherWindow(event, "/fxml/infoCompany.fxml");
+        }
+
+    }
+
+    @FXML
+    public static void openWebpage(String urlString) throws IOException {
+        Runtime rt = Runtime.getRuntime();
+        rt.exec("rundll32 url.dll,FileProtocolHandler " + urlString);
+    }
+
+
+
+    public List<CompanyResponseDto> getCompaniesList() throws IOException {
+        Call<List<CompanyResponseDto>> response = api.getAllCompany();
+        return response.execute().body();
     }
 
     public void showCompanies() throws IOException {
@@ -104,11 +130,6 @@ public class CompanyFxmlController implements Initializable {
         colBudget.setCellValueFactory(new PropertyValueFactory<CompanyResponseDto, Double>("budget"));
 
         tvCompany.setItems(list);
-    }
-
-    public List<CompanyResponseDto> getCompaniesList() throws IOException {
-        Call<List<CompanyResponseDto>> response = api.getAllCompany();
-        return response.execute().body();
     }
 
     private void insertRecord() throws IOException {
@@ -145,19 +166,6 @@ public class CompanyFxmlController implements Initializable {
         showCompanies();
     }
 
-    @FXML
-    public void menuHandleButtonAction(ActionEvent event) throws IOException {
-
-        if (event.getSource() == miHome) {
-            redirectToAnotherWindow(event, "/fxml/index.fxml");
-        } else if (event.getSource() == miReport) {
-            redirectToAnotherWindow(event, "/fxml/index.fxml");
-        } else if (event.getSource() == miMore) {
-            redirectToAnotherWindow(event, "/fxml/infoCompany.fxml");
-        }
-
-    }
-
     public void redirectToAnotherWindow(ActionEvent event, String url) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
@@ -167,7 +175,7 @@ public class CompanyFxmlController implements Initializable {
         Image image = new Image(iconStream);
         stage.getIcons().add(image);
 
-        stage.setTitle("VladSin Company");
+        stage.setTitle("VladSin Application");
         stage.setScene(new Scene(root));
         stage.show();
     }

@@ -36,6 +36,12 @@ public class EmployeeFxmlController implements Initializable {
     public EmployeeFxmlController() {
     }
 
+    @SneakyThrows
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        showEmployees();
+    }
+
     @FXML
     private MenuItem miHome;
     @FXML
@@ -91,10 +97,30 @@ public class EmployeeFxmlController implements Initializable {
 
     }
 
-    @SneakyThrows
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        showEmployees();
+    @FXML
+    public void menuHandleButtonAction(ActionEvent event) throws IOException {
+
+        if (event.getSource() == miHome) {
+            redirectToAnotherWindow(event, "/fxml/index.fxml");
+        } else if (event.getSource() == miReport) {
+            openWebpage("http://localhost:8080/export/employees/excel");
+        } else if (event.getSource() == miMore) {
+            redirectToAnotherWindow(event, "/fxml/infoEmployee.fxml");
+        }
+
+    }
+
+    @FXML
+    public static void openWebpage(String urlString) throws IOException {
+        Runtime rt = Runtime.getRuntime();
+        rt.exec("rundll32 url.dll,FileProtocolHandler " + urlString);
+    }
+
+
+
+    public List<EmployeeResponseDto> getEmployeesList() throws IOException {
+        Call<List<EmployeeResponseDto>> response = api.getAllEmployee();
+        return response.execute().body();
     }
 
     public void showEmployees() throws IOException {
@@ -111,12 +137,6 @@ public class EmployeeFxmlController implements Initializable {
         tvEmployees.setItems(list);
     }
 
-    public List<EmployeeResponseDto> getEmployeesList() throws IOException {
-        Call<List<EmployeeResponseDto>> response = api.getAllEmployee();
-        return response.execute().body();
-    }
-
-    @FXML
     private void insertRecord() throws IOException {
 
         EmployeeRequestDto request = new EmployeeRequestDto();
@@ -132,7 +152,6 @@ public class EmployeeFxmlController implements Initializable {
         showEmployees();
     }
 
-    @FXML
     private void updateRecord() throws IOException {
 
         EmployeeRequestDto request = new EmployeeRequestDto();
@@ -148,25 +167,11 @@ public class EmployeeFxmlController implements Initializable {
         showEmployees();
     }
 
-    @FXML
     private void deleteButton() throws IOException {
         Call<String> response = api.deleteEmployee(Long.valueOf(tfId.getText()));
         System.out.println(response.request());
         System.out.println(response.execute().body());
         showEmployees();
-    }
-
-    @FXML
-    public void menuHandleButtonAction(ActionEvent event) throws IOException {
-
-        if (event.getSource() == miHome) {
-            redirectToAnotherWindow(event, "/fxml/index.fxml");
-        } else if (event.getSource() == miReport) {
-            redirectToAnotherWindow(event, "/fxml/index.fxml");
-        } else if (event.getSource() == miMore) {
-            redirectToAnotherWindow(event, "/fxml/infoEmployee.fxml");
-        }
-
     }
 
     public void redirectToAnotherWindow(ActionEvent event, String url) throws IOException {
@@ -179,7 +184,7 @@ public class EmployeeFxmlController implements Initializable {
         Image image = new Image(iconStream);
         stage.getIcons().add(image);
 
-        stage.setTitle("VladSin Company");
+        stage.setTitle("VladSin Application");
         stage.setScene(new Scene(root));
         stage.show();
     }

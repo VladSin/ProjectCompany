@@ -15,10 +15,10 @@ public interface DepartmentUtilApi {
     @GET("/department/get/id/{id}")
     Call<DepartmentResponseDto> getDepartmentById(@Path("id") Long id);
 
-    @GET("/department/get/name/{username}")
+    @GET("/department/get/name/{name}")
     Call<DepartmentResponseDto> getDepartmentByName(@Path("name") String name);
 
-    @GET("/department/get/all/location/{locations}")
+    @GET("/department/get/location/{location}")
     Call<List<DepartmentResponseDto>> getAllDepartmentByLocation(@Path("location") String location);
 
     @GET("/department/get/all")

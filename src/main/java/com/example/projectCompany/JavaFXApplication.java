@@ -34,7 +34,7 @@ public class JavaFXApplication extends Application {
         Image image = new Image(iconStream);
         primaryStage.getIcons().add(image);
 
-        primaryStage.setTitle("VladSin Company");
+        primaryStage.setTitle("VladSin Application");
         primaryStage.setScene(createScene(loadMainPane(fxmlFile)));
         primaryStage.show();
     }

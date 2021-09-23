@@ -60,9 +60,9 @@ public class DepartmentController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("get/locations/{locations}")
-    public ResponseEntity<List<DepartmentResponseDto>> getDepartmentsByLocation(@PathVariable(name = "locations") String locations) {
-        List<DepartmentResponseDto> response = departmentService.getAllDepartmentByLocation(locations).stream()
+    @GetMapping("get/location/{location}")
+    public ResponseEntity<List<DepartmentResponseDto>> getDepartmentsByLocation(@PathVariable(name = "location") String location) {
+        List<DepartmentResponseDto> response = departmentService.getAllDepartmentByLocation(location).stream()
                 .map(DepartmentResponseDto::fromDepartment)
                 .collect(Collectors.toList());
         return new ResponseEntity<>(response, HttpStatus.OK);

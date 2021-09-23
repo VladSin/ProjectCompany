@@ -109,15 +109,15 @@ public class ExpansionEmployeeFxmlController implements Initializable {
         } else if (event.getSource() == btnGetByEmail) {
             getByEmail();
         } else if (event.getSource() == btnGetByMarried) {
-            GetByMarried();
+            getByMarried();
         } else if (event.getSource() == btnGetByDepartment) {
-            GetByDepartment();
+            getByDepartment();
         } else if (event.getSource() == btnGetBySalaryAfter) {
-            GetBySalaryAfter();
+            getBySalaryAfter();
         } else if (event.getSource() == btnGetBySalaryBefore) {
-            GetBySalaryBefore();
+            getBySalaryBefore();
         } else if (event.getSource() == btnGetBySalaryBetween) {
-            GetBySalaryBetween();
+            getBySalaryBetween();
         }
 
     }
@@ -128,13 +128,18 @@ public class ExpansionEmployeeFxmlController implements Initializable {
         if (event.getSource() == miHome) {
             redirectToAnotherWindow(event, "/fxml/index.fxml");
         } else if (event.getSource() == miReport) {
-            redirectToAnotherWindow(event, "/fxml/index.fxml");
+            openWebpage("http://localhost:8080/export/employees/excel");
         } else if (event.getSource() == miBack) {
             redirectToAnotherWindow(event, "/fxml/mainEmployee.fxml");
         }
 
     }
 
+    @FXML
+    public static void openWebpage(String urlString) throws IOException {
+        Runtime rt = Runtime.getRuntime();
+        rt.exec("rundll32 url.dll,FileProtocolHandler " + urlString);
+    }
 
     private void getAll() throws IOException {
         ObservableList<EmployeeResponseDto> list =
@@ -154,31 +159,31 @@ public class ExpansionEmployeeFxmlController implements Initializable {
         showEmployees(list);
     }
 
-    private void GetByMarried() throws IOException {
+    private void getByMarried() throws IOException {
         ObservableList<EmployeeResponseDto> list =
                 FXCollections.observableArrayList(getEmployeesByMarried());
         showEmployees(list);
     }
 
-    private void GetByDepartment() throws IOException {
+    private void getByDepartment() throws IOException {
         ObservableList<EmployeeResponseDto> list =
                 FXCollections.observableArrayList(getEmployeesByDepartment());
         showEmployees(list);
     }
 
-    private void GetBySalaryAfter() throws IOException {
+    private void getBySalaryAfter() throws IOException {
         ObservableList<EmployeeResponseDto> list =
                 FXCollections.observableArrayList(getEmployeeBySalaryAfter());
         showEmployees(list);
     }
 
-    private void GetBySalaryBefore() throws IOException {
+    private void getBySalaryBefore() throws IOException {
         ObservableList<EmployeeResponseDto> list =
                 FXCollections.observableArrayList(getEmployeesBySalaryBefore());
         showEmployees(list);
     }
 
-    private void GetBySalaryBetween() throws IOException {
+    private void getBySalaryBetween() throws IOException {
         ObservableList<EmployeeResponseDto> list =
                 FXCollections.observableArrayList(getEmployeeBySalaryBetween());
         showEmployees(list);
@@ -242,7 +247,6 @@ public class ExpansionEmployeeFxmlController implements Initializable {
         tvEmployees.setItems(list);
     }
 
-
     public void redirectToAnotherWindow(ActionEvent event, String url) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
@@ -252,7 +256,7 @@ public class ExpansionEmployeeFxmlController implements Initializable {
         Image image = new Image(iconStream);
         stage.getIcons().add(image);
 
-        stage.setTitle("VladSin Company");
+        stage.setTitle("VladSin Application");
         stage.setScene(new Scene(root));
         stage.show();
     }

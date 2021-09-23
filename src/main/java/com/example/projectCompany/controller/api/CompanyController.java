@@ -51,9 +51,9 @@ public class CompanyController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("get/locations/{locations}")
-    public ResponseEntity<List<CompanyResponseDto>> getCompaniesByLocation(@PathVariable(name = "locations") String locations) {
-        List<CompanyResponseDto> response = companyService.getAllCompanyByLocation(locations).stream()
+    @GetMapping("get/location/{location}")
+    public ResponseEntity<List<CompanyResponseDto>> getCompaniesByLocation(@PathVariable(name = "location") String location) {
+        List<CompanyResponseDto> response = companyService.getAllCompanyByLocation(location).stream()
                 .map(CompanyResponseDto::fromCompany)
                 .collect(Collectors.toList());
         return new ResponseEntity<>(response, HttpStatus.OK);

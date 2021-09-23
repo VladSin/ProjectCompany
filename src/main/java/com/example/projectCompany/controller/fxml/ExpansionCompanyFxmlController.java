@@ -100,13 +100,18 @@ public class ExpansionCompanyFxmlController implements Initializable {
         if (event.getSource() == miHome) {
             redirectToAnotherWindow(event, "/fxml/index.fxml");
         } else if (event.getSource() == miReport) {
-            redirectToAnotherWindow(event, "/fxml/index.fxml");
+            openWebpage("http://localhost:8080/export/companies/excel");
         } else if (event.getSource() == miBack) {
             redirectToAnotherWindow(event, "/fxml/mainCompany.fxml");
         }
 
     }
 
+    @FXML
+    public static void openWebpage(String urlString) throws IOException {
+        Runtime rt = Runtime.getRuntime();
+        rt.exec("rundll32 url.dll,FileProtocolHandler " + urlString);
+    }
 
     private void getAll() throws IOException {
         ObservableList<CompanyResponseDto> list =
@@ -180,7 +185,7 @@ public class ExpansionCompanyFxmlController implements Initializable {
         Image image = new Image(iconStream);
         stage.getIcons().add(image);
 
-        stage.setTitle("VladSin Company");
+        stage.setTitle("VladSin Application");
         stage.setScene(new Scene(root));
         stage.show();
     }

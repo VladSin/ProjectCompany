@@ -18,7 +18,7 @@ public interface CompanyUtilApi {
     @GET("/company/get/name/{name}")
     Call<CompanyResponseDto> getCompanyByName(@Path("name") String name);
 
-    @GET("/company/get/all/location/{locations}")
+    @GET("/company/get/location/{location}")
     Call<List<CompanyResponseDto>> getAllCompanyByLocation(@Path("location") String location);
 
     @GET("/company/get/all")

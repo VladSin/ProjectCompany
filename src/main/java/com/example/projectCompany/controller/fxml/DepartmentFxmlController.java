@@ -36,6 +36,12 @@ public class DepartmentFxmlController implements Initializable {
     public DepartmentFxmlController() {
     }
 
+    @SneakyThrows
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        showDepartments();
+    }
+
     @FXML
     private MenuItem miHome;
     @FXML
@@ -87,10 +93,30 @@ public class DepartmentFxmlController implements Initializable {
 
     }
 
-    @SneakyThrows
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        showDepartments();
+    @FXML
+    public void menuHandleButtonAction(ActionEvent event) throws IOException {
+
+        if (event.getSource() == miHome) {
+            redirectToAnotherWindow(event, "/fxml/index.fxml");
+        } else if (event.getSource() == miReport) {
+            openWebpage("http://localhost:8080/export/departments/excel");
+        } else if (event.getSource() == miMore) {
+            redirectToAnotherWindow(event, "/fxml/infoDepartment.fxml");
+        }
+
+    }
+
+    @FXML
+    public static void openWebpage(String urlString) throws IOException {
+        Runtime rt = Runtime.getRuntime();
+        rt.exec("rundll32 url.dll,FileProtocolHandler " + urlString);
+    }
+
+
+
+    public List<DepartmentResponseDto> getDepartmentsList() throws IOException {
+        Call<List<DepartmentResponseDto>> response = api.getAllDepartment();
+        return response.execute().body();
     }
 
     public void showDepartments() throws IOException {
@@ -103,11 +129,6 @@ public class DepartmentFxmlController implements Initializable {
         colCompany.setCellValueFactory(new PropertyValueFactory<DepartmentResponseDto, String>("company"));
 
         tvDepartment.setItems(list);
-    }
-
-    public List<DepartmentResponseDto> getDepartmentsList() throws IOException {
-        Call<List<DepartmentResponseDto>> response = api.getAllDepartment();
-        return response.execute().body();
     }
 
     private void insertRecord() throws IOException {
@@ -144,19 +165,6 @@ public class DepartmentFxmlController implements Initializable {
         showDepartments();
     }
 
-    @FXML
-    public void menuHandleButtonAction(ActionEvent event) throws IOException {
-
-        if (event.getSource() == miHome) {
-            redirectToAnotherWindow(event, "/fxml/index.fxml");
-        } else if (event.getSource() == miReport) {
-            redirectToAnotherWindow(event, "/fxml/index.fxml");
-        } else if (event.getSource() == miMore) {
-            redirectToAnotherWindow(event, "/fxml/infoDepartment.fxml");
-        }
-
-    }
-
     public void redirectToAnotherWindow(ActionEvent event, String url) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
@@ -166,7 +174,7 @@ public class DepartmentFxmlController implements Initializable {
         Image image = new Image(iconStream);
         stage.getIcons().add(image);
 
-        stage.setTitle("VladSin Company");
+        stage.setTitle("VladSin Application");
         stage.setScene(new Scene(root));
         stage.show();
     }
