@@ -52,11 +52,11 @@ public class MainFxmlController {
         if (event.getSource() == miLogout) {
             redirectToAnotherWindow(event, "/fxml/index.fxml");
         } else if (event.getSource() == miCompany) {
-            redirectToAnotherWindow(event, "/fxml/mainCompany.fxml");
+            redirectToAnotherWindow(event, "/fxml/company.fxml");
         } else if (event.getSource() == miDepartment) {
-            redirectToAnotherWindow(event, "/fxml/mainDepartment.fxml");
+            redirectToAnotherWindow(event, "/fxml/department.fxml");
         } else if (event.getSource() == miEmployee) {
-            redirectToAnotherWindow(event, "/fxml/mainEmployee.fxml");
+            redirectToAnotherWindow(event, "/fxml/employee.fxml");
         }
 
     }

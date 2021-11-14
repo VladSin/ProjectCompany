@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 @Component
-@FxmlView("/fxml/mainCompany.fxml")
+@FxmlView("/fxml/company.fxml")
 public class CompanyFxmlController implements Initializable {
 
     private final CompanyUtilApi api = CompanyApiConfig.getApi();

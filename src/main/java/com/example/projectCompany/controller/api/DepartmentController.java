@@ -2,7 +2,9 @@ package com.example.projectCompany.controller.api;
 
 import com.example.projectCompany.dto.request.DepartmentRequestDto;
 import com.example.projectCompany.dto.response.DepartmentResponseDto;
+import com.example.projectCompany.dto.response.EmployeeResponseDto;
 import com.example.projectCompany.entity.Department;
+import com.example.projectCompany.entity.Employee;
 import com.example.projectCompany.service.CompanyService;
 import com.example.projectCompany.service.DepartmentService;
 import com.example.projectCompany.service.EmployeeService;
@@ -42,8 +44,10 @@ public class DepartmentController {
         department.setName(request.getName());
         department.setWebsite(request.getWebsite());
         department.setLocation(request.getLocation());
-
-        if (request.getCompany() != null){
+        if (request.getHead() != null) {
+            department.setHeadId(employeeService.getEmployeeById(request.getHead()).orElse(null));
+        }
+        if (request.getCompany() != null) {
             department.setCompany(companyService.getCompanyByName(request.getCompany()));
         }
         departmentService.saveDepartment(department);
@@ -88,6 +92,16 @@ public class DepartmentController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping("get/head/{id}")
+    public ResponseEntity<EmployeeResponseDto> getHeadOfDepartmentById(@PathVariable(name = "id") Long id) {
+        Employee employee = departmentService.getHeadOfDepartment(id).orElse(null);
+        if (employee == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        EmployeeResponseDto response = EmployeeResponseDto.fromEmployee(employee);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @PatchMapping(value = "update/{id}")
     public ResponseEntity<DepartmentResponseDto> updateDepartment(@PathVariable("id") Long id,
                                                                   @RequestBody DepartmentRequestDto request) {
@@ -95,7 +109,8 @@ public class DepartmentController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         departmentService.updateDepartmentData(DepartmentRequestDto.fromRequestDepartment(request,
-                companyService.getCompanyByName(request.getCompany())));
+                companyService.getCompanyByName(request.getCompany()),
+                employeeService.getEmployeeById(request.getHead()).orElse(null)));
         DepartmentResponseDto response = DepartmentResponseDto.fromDepartment(departmentService.getDepartmentByName(request.getName()));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 import java.util.List;
 
 @Data
@@ -28,6 +29,7 @@ public class Company {
     @Column(name = "location")
     private String location;
 
+    @DecimalMin(value = "0", message = "Salary must be a greater than 0")
     @Column(name = "budget")
     private double budget;
 

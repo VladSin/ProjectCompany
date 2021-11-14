@@ -102,7 +102,7 @@ public class ExpansionCompanyFxmlController implements Initializable {
         } else if (event.getSource() == miReport) {
             openWebpage("http://localhost:8080/export/companies/excel");
         } else if (event.getSource() == miBack) {
-            redirectToAnotherWindow(event, "/fxml/mainCompany.fxml");
+            redirectToAnotherWindow(event, "/fxml/company.fxml");
         }
 
     }

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +38,10 @@ public class EmployeeController {
         if (request.getDepartment() != null) {
             employee.setDepartment(departmentService.getDepartmentByName(request.getDepartment()));
         }
-        employee.setUsername(request.getUsername());
+        employee.setFirstName(request.getFirstName());
+        employee.setLastName(request.getLastName());
+        employee.setBirthday(Date.valueOf(request.getBirthday()));
+        System.out.println(request.getBirthday());
         employee.setEmail(request.getEmail());
         employee.setMarried(request.isMarried());
         employee.setSalary(request.getSalary());
@@ -58,9 +62,9 @@ public class EmployeeController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("get/username/{username}")
-    public ResponseEntity<EmployeeResponseDto> getEmployeeByUsername(@PathVariable(name = "username") String username) {
-        Employee employee = employeeService.getEmployeeByUsername(username);
+    @GetMapping("get/username/{firstName}/{lastName}")
+    public ResponseEntity<EmployeeResponseDto> getEmployeeByUsername(@PathVariable(name = "firstName") String firstName, @PathVariable(name = "lastName") String lastName) {
+        Employee employee = employeeService.getEmployeeByUsername(firstName, lastName);
         if (employee == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 @Component
-@FxmlView("/fxml/mainDepartment.fxml")
+@FxmlView("/fxml/department.fxml")
 public class DepartmentFxmlController implements Initializable {
 
     private final DepartmentUtilApi api = DepartmentApiConfig.getApi();
@@ -59,6 +59,8 @@ public class DepartmentFxmlController implements Initializable {
     private TextField tfWebSite;
     @FXML
     private TextField tfCompany;
+    @FXML
+    private TextField tfHead;
 
     @FXML
     private TableView<DepartmentResponseDto> tvDepartment;
@@ -72,6 +74,8 @@ public class DepartmentFxmlController implements Initializable {
     private TableColumn<DepartmentResponseDto, String> colWebSite;
     @FXML
     private TableColumn<DepartmentResponseDto, String> colCompany;
+    @FXML
+    private TableColumn<DepartmentResponseDto, String> colHead;
 
     @FXML
     private Button btnInsert;
@@ -126,6 +130,7 @@ public class DepartmentFxmlController implements Initializable {
         colName.setCellValueFactory(new PropertyValueFactory<DepartmentResponseDto, String>("name"));
         colLocation.setCellValueFactory(new PropertyValueFactory<DepartmentResponseDto, String>("location"));
         colWebSite.setCellValueFactory(new PropertyValueFactory<DepartmentResponseDto, String>("website"));
+        colHead.setCellValueFactory(new PropertyValueFactory<DepartmentResponseDto, String>("head"));
         colCompany.setCellValueFactory(new PropertyValueFactory<DepartmentResponseDto, String>("company"));
 
         tvDepartment.setItems(list);
@@ -137,6 +142,7 @@ public class DepartmentFxmlController implements Initializable {
         request.setLocation(tfLocation.getText());
         request.setWebsite(tfWebSite.getText());
         request.setCompany(tfCompany.getText());
+        request.setHead(Long.valueOf(tfHead.getText()));
 
         Call<DepartmentResponseDto> response = api.saveDepartment(request);
         System.out.println(response.request());
@@ -151,6 +157,7 @@ public class DepartmentFxmlController implements Initializable {
         request.setLocation(tfLocation.getText());
         request.setWebsite(tfWebSite.getText());
         request.setCompany(tfCompany.getText());
+        request.setHead(Long.valueOf(tfHead.getText()));
 
         Call<DepartmentResponseDto> response = api.updateDepartmentData(request.getId(), request);
         System.out.println(response.request());

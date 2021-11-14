@@ -40,7 +40,8 @@ public class ExcelDepartmentExporter {
         createCell(row, 1, "Department", style);
         createCell(row, 2, "WebSite", style);
         createCell(row, 3, "Location", style);
-        createCell(row, 4, "Company", style);
+        createCell(row, 4, "Head", style);
+        createCell(row, 5, "Company", style);
     }
 
     private void createCell(Row row, int columnCount, Object value, CellStyle style) {
@@ -75,6 +76,7 @@ public class ExcelDepartmentExporter {
             createCell(row, columnCount++, d.getName(), style);
             createCell(row, columnCount++, d.getWebsite(), style);
             createCell(row, columnCount++, d.getLocation(), style);
+            createCell(row, columnCount++, d.getHead(), style);
             createCell(row, columnCount++, d.getCompany(), style);
         }
     }

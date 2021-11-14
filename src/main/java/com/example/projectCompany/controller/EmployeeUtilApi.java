@@ -15,8 +15,8 @@ public interface EmployeeUtilApi {
     @GET("/employee/get/id/{id}")
     Call<EmployeeResponseDto> getEmployeeById(@Path("id") Long id);
 
-    @GET("/employee/get/username/{username}")
-    Call<EmployeeResponseDto> getEmployeeByUsername(@Path("username") String username);
+    @GET("/employee/get/username/{firstName}/{lastName}")
+    Call<EmployeeResponseDto> getEmployeeByUsername(@Path("firstName") String firstName, @Path("lastName") String lastName);
 
     @GET("/employee/get/email/{email}")
     Call<EmployeeResponseDto> getEmployeeByEmail(@Path("email") String email);

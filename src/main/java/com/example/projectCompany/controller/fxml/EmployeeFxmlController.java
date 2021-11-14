@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 @Component
-@FxmlView("/fxml/mainEmployee.fxml")
+@FxmlView("/fxml/employee.fxml")
 public class EmployeeFxmlController implements Initializable {
 
     private final EmployeeUtilApi api = EmployeeApiConfig.getApi();
@@ -54,6 +54,8 @@ public class EmployeeFxmlController implements Initializable {
     @FXML
     private TextField tfUsername;
     @FXML
+    private TextField tfBirthday;
+    @FXML
     private TextField tfEmail;
     @FXML
     private TextField tfMarried;
@@ -68,6 +70,10 @@ public class EmployeeFxmlController implements Initializable {
     private TableColumn<EmployeeResponseDto, Long> colId;
     @FXML
     private TableColumn<EmployeeResponseDto, String> colUsername;
+    @FXML
+    private TableColumn<EmployeeResponseDto, String> colAge;
+    @FXML
+    private TableColumn<EmployeeResponseDto, String> colBirthday;
     @FXML
     private TableColumn<EmployeeResponseDto, String> colEmail;
     @FXML
@@ -129,6 +135,8 @@ public class EmployeeFxmlController implements Initializable {
 
         colId.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, Long>("id"));
         colUsername.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, String>("username"));
+        colAge.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, String>("age"));
+        colBirthday.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, String>("birthday"));
         colEmail.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, String>("email"));
         colMarried.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, Boolean>("married"));
         colSalary.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, Double>("salary"));
@@ -138,9 +146,13 @@ public class EmployeeFxmlController implements Initializable {
     }
 
     private void insertRecord() throws IOException {
+        String[] fullName;
+        fullName = tfUsername.getText().split(" ");
 
         EmployeeRequestDto request = new EmployeeRequestDto();
-        request.setUsername(tfUsername.getText());
+        request.setFirstName(fullName[0]);
+        request.setLastName(fullName[1]);
+        request.setBirthday(tfBirthday.getText());
         request.setEmail(tfEmail.getText());
         request.setSalary(Double.parseDouble(tfSalary.getText()));
         request.setMarried(Boolean.parseBoolean(tfMarried.getText()));
@@ -153,14 +165,19 @@ public class EmployeeFxmlController implements Initializable {
     }
 
     private void updateRecord() throws IOException {
+        String[] fullName;
+        fullName = tfUsername.getText().split(" ");
 
         EmployeeRequestDto request = new EmployeeRequestDto();
         request.setId(Long.parseLong(tfId.getText()));
-        request.setUsername(tfUsername.getText());
+        request.setFirstName(fullName[0]);
+        request.setLastName(fullName[1]);
+        request.setBirthday(tfBirthday.getText());
         request.setEmail(tfEmail.getText());
         request.setSalary(Double.parseDouble(tfSalary.getText()));
         request.setMarried(Boolean.parseBoolean(tfMarried.getText()));
         request.setDepartment(tfDepartment.getText());
+
         Call<EmployeeResponseDto> response = api.updateEmployeeData(Long.valueOf(tfId.getText()), request);
         System.out.println(response.request());
         System.out.println(response.execute().body());
