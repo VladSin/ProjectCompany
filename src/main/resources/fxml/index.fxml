@@ -30,14 +30,8 @@
         <items>
           <MenuItem fx:id="miReport" mnemonicParsing="false" onAction="#menuHandleButtonAction" text="Report" />
           <MenuItem fx:id="miCompany" mnemonicParsing="false" onAction="#menuHandleButtonAction" text="Company" />
-            <Menu mnemonicParsing="false" text="Information">
-              <items>
-                <MenuItem fx:id="miDepartment" mnemonicParsing="false" onAction="#menuHandleButtonAction" text="Department"/>
-              </items>
-                <items>
-                    <MenuItem fx:id="miEmployee" mnemonicParsing="false" onAction="#menuHandleButtonAction" text="Employee" />
-                </items>
-            </Menu>
+          <MenuItem fx:id="miDepartment" mnemonicParsing="false" onAction="#menuHandleButtonAction" text="Department"/>
+          <MenuItem fx:id="miEmployee" mnemonicParsing="false" onAction="#menuHandleButtonAction" text="Employee" />
         </items>
          <font>
             <Font name="System Bold" size="15.0" />
