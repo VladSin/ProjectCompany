@@ -1,8 +1,11 @@
 package com.example.projectCompany.controller.fxml;
 
+import com.example.projectCompany.controller.DepartmentUtilApi;
 import com.example.projectCompany.controller.EmployeeUtilApi;
+import com.example.projectCompany.controller.config.DepartmentApiConfig;
 import com.example.projectCompany.controller.config.EmployeeApiConfig;
 import com.example.projectCompany.dto.request.EmployeeRequestDto;
+import com.example.projectCompany.dto.response.DepartmentResponseDto;
 import com.example.projectCompany.dto.response.EmployeeResponseDto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +27,7 @@ import retrofit2.Call;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -31,7 +35,8 @@ import java.util.ResourceBundle;
 @FxmlView("/fxml/employee.fxml")
 public class EmployeeFxmlController implements Initializable {
 
-    private final EmployeeUtilApi api = EmployeeApiConfig.getApi();
+    private final DepartmentUtilApi departmentUtilApi = DepartmentApiConfig.getApi();
+    private final EmployeeUtilApi employeeUtilApi = EmployeeApiConfig.getApi();
 
     public EmployeeFxmlController() {
     }
@@ -39,6 +44,14 @@ public class EmployeeFxmlController implements Initializable {
     @SneakyThrows
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        ObservableList<DepartmentResponseDto> departmentList = FXCollections.observableArrayList(getDepartmentsList());
+        List<String> departmentData = new ArrayList<>();
+        for (DepartmentResponseDto d: departmentList) {
+            departmentData.add(d.getId() + ", " + d.getName() + ", " + d.getCompany());
+        }
+        cbDepartment.setItems(FXCollections.observableArrayList(departmentData));
+
         showEmployees();
     }
 
@@ -64,7 +77,7 @@ public class EmployeeFxmlController implements Initializable {
     @FXML
     private TextField tfSalary;
     @FXML
-    private TextField tfDepartment;
+    private ComboBox<String> cbDepartment;
 
     @FXML
     private TableView<EmployeeResponseDto> tvEmployees;
@@ -127,9 +140,16 @@ public class EmployeeFxmlController implements Initializable {
 
 
     public List<EmployeeResponseDto> getEmployeesList() throws IOException {
-        Call<List<EmployeeResponseDto>> response = api.getAllEmployee();
+        Call<List<EmployeeResponseDto>> response = employeeUtilApi.getAllEmployee();
         return response.execute().body();
     }
+
+    public List<DepartmentResponseDto> getDepartmentsList() throws IOException {
+        Call<List<DepartmentResponseDto>> response = departmentUtilApi.getAllDepartment();
+        return response.execute().body();
+    }
+
+
 
     public void showEmployees() throws IOException {
         ObservableList<EmployeeResponseDto> list =
@@ -148,6 +168,9 @@ public class EmployeeFxmlController implements Initializable {
     }
 
     private void insertRecord() throws IOException {
+        String comma = ", ";
+        String[] departmentData = cbDepartment.getValue().split(comma);
+
         EmployeeRequestDto request = new EmployeeRequestDto();
         request.setFirstName(tfFirstName.getText());
         request.setLastName(tfSecondName.getText());
@@ -155,15 +178,18 @@ public class EmployeeFxmlController implements Initializable {
         request.setEmail(tfEmail.getText());
         request.setSalary(Double.parseDouble(tfSalary.getText()));
         request.setMarried(Boolean.parseBoolean(tfMarried.getText()));
-        request.setDepartment(tfDepartment.getText());
+        request.setDepartment(departmentData[1]);
 
-        Call<EmployeeResponseDto> response = api.saveEmployee(request);
+        Call<EmployeeResponseDto> response = employeeUtilApi.saveEmployee(request);
         System.out.println(response.request());
         System.out.println(response.execute().body());
         showEmployees();
     }
 
     private void updateRecord() throws IOException {
+        String comma = ", ";
+        String[] departmentData = cbDepartment.getValue().split(comma);
+
         EmployeeRequestDto request = new EmployeeRequestDto();
         request.setId(Long.parseLong(tfId.getText()));
         request.setFirstName(tfFirstName.getText());
@@ -172,16 +198,16 @@ public class EmployeeFxmlController implements Initializable {
         request.setEmail(tfEmail.getText());
         request.setSalary(Double.parseDouble(tfSalary.getText()));
         request.setMarried(Boolean.parseBoolean(tfMarried.getText()));
-        request.setDepartment(tfDepartment.getText());
+        request.setDepartment(departmentData[1]);
 
-        Call<EmployeeResponseDto> response = api.updateEmployeeData(Long.valueOf(tfId.getText()), request);
+        Call<EmployeeResponseDto> response = employeeUtilApi.updateEmployeeData(Long.valueOf(tfId.getText()), request);
         System.out.println(response.request());
         System.out.println(response.execute().body());
         showEmployees();
     }
 
     private void deleteButton() throws IOException {
-        Call<String> response = api.deleteEmployee(Long.valueOf(tfId.getText()));
+        Call<String> response = employeeUtilApi.deleteEmployee(Long.valueOf(tfId.getText()));
         System.out.println(response.request());
         System.out.println(response.execute().body());
         showEmployees();

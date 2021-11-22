@@ -55,7 +55,7 @@
                 </Label>
             </children>
         </VBox>
-        <VBox layoutX="115.0" layoutY="94.0" prefHeight="206.0" prefWidth="185.0" spacing="10.0">
+        <VBox layoutX="115.0" layoutY="94.0" prefHeight="312.0" prefWidth="185.0" spacing="10.0">
             <children>
                 <TextField fx:id="tfId" />
                 <TextField fx:id="tfFirstName" />
@@ -64,7 +64,7 @@
                 <TextField fx:id="tfEmail" layoutX="10.0" layoutY="10.0" />
                 <TextField fx:id="tfMarried" layoutX="10.0" layoutY="35.0" />
                 <TextField fx:id="tfSalary" layoutX="10.0" layoutY="85.0" />
-                <TextField fx:id="tfDepartment" />
+                <ComboBox fx:id="cbDepartment" prefHeight="43.0" prefWidth="185.0" />
             </children>
         </VBox>
         <TableView fx:id="tvEmployees" layoutX="318.0" layoutY="54.0" prefHeight="407.0" prefWidth="870.0">
