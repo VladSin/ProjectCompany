@@ -19,7 +19,7 @@ public interface EmployeeService {
 
     Employee getEmployeeByUsername(String first, String lastName);
 
-    List<Employee> getAll();
+    List<Employee> getAllEmployee();
 
     List<Employee> getAllByMarried(boolean married);
 

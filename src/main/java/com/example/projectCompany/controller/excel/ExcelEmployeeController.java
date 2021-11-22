@@ -37,7 +37,7 @@ public class ExcelEmployeeController {
         String headerValue = "attachment; filename=Employees_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
 
-        List<EmployeeResponseDto> employeeResponse = employeeService.getAll().stream()
+        List<EmployeeResponseDto> employeeResponse = employeeService.getAllEmployee().stream()
                 .map(EmployeeResponseDto::fromEmployee)
                 .collect(Collectors.toList());
 

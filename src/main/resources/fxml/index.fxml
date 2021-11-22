@@ -16,7 +16,7 @@
             <Font name="System Bold Italic" size="29.0" />
          </font>
       </Text>
-      <Text layoutX="408.0" layoutY="127.0" strokeType="INSIDE" strokeWidth="0.0" text="Функционал данного приложения моделирует работу с базой данных некоторой компании:&#10;&#10;   • Управление данными отделов компании&#10;   • Управление данными сотрудников компании &#10;   • Документирование и составление отчетов  &#10;&#10;По всем вопросам Вы можете обратиться непосредственно разработчику этого приложения по электронной почте: Vladsinitsa23@gmail.com               " wrappingWidth="436.0">
+      <Text layoutX="408.0" layoutY="127.0" strokeType="INSIDE" strokeWidth="0.0" text="Функционал данного приложения моделирует работу с базой данных по администрированию компаний:&#10;&#10;   • Управление данными отделов компании&#10;   • Управление данными сотрудников компании &#10;   • Документирование и составление отчетов  &#10;&#10;По всем вопросам Вы можете обратиться непосредственно разработчику этого приложения по электронной почте: Vladsinitsa23@gmail.com               " wrappingWidth="436.0">
          <font>
             <Font name="System Italic" size="17.0" />
          </font>
@@ -28,7 +28,7 @@
       </ImageView>
       <MenuButton mnemonicParsing="false" text="Menu">
         <items>
-          <MenuItem fx:id="miLogout" mnemonicParsing="false" onAction="#menuHandleButtonAction" text="Log Out" />
+          <MenuItem fx:id="miReport" mnemonicParsing="false" onAction="#menuHandleButtonAction" text="Report" />
           <MenuItem fx:id="miCompany" mnemonicParsing="false" onAction="#menuHandleButtonAction" text="Company" />
             <Menu mnemonicParsing="false" text="Information">
               <items>

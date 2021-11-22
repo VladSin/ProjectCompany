@@ -84,7 +84,7 @@ public class EmployeeController {
 
     @GetMapping("get/all")
     public ResponseEntity<List<EmployeeResponseDto>> getEmployees() {
-        List<EmployeeResponseDto> response = employeeService.getAll().stream()
+        List<EmployeeResponseDto> response = employeeService.getAllEmployee().stream()
                 .map(EmployeeResponseDto::fromEmployee)
                 .collect(Collectors.toList());
         return new ResponseEntity<>(response, HttpStatus.OK);

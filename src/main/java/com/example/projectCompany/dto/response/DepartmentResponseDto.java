@@ -28,7 +28,7 @@ public class DepartmentResponseDto {
         if (department.getHeadId() == null){
             response.setHead("null");
         } else {
-            response.setHead(department.getHeadId().getFirstName() + " " + department.getHeadId().getLastName());
+            response.setHead(department.getHeadId().getFirstName() + " " + department.getHeadId().getLastName() + ", " + department.getHeadId().getEmail());
         }
         if (department.getCompany() == null){
             response.setCompany("null");

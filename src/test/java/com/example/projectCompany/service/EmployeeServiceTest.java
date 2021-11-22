@@ -10,7 +10,6 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -85,7 +84,7 @@ class EmployeeServiceTest {
         employeeService.saveEmployee(employee7);
         employeeService.saveEmployee(employee8);
 
-        List<Employee> employees = employeeService.getAll();
+        List<Employee> employees = employeeService.getAllEmployee();
         assertNotNull(employees);
     }
 
