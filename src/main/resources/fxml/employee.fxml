@@ -17,11 +17,17 @@
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <Label text="Username">
+                <Label text="Name">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Label>
+                <Label text="Surname">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+
                 <Label text="Birthday">
                     <font>
                         <Font size="14.0" />
@@ -52,7 +58,8 @@
         <VBox layoutX="115.0" layoutY="94.0" prefHeight="206.0" prefWidth="185.0" spacing="10.0">
             <children>
                 <TextField fx:id="tfId" />
-                <TextField fx:id="tfUsername" />
+                <TextField fx:id="tfFirstName" />
+                <TextField fx:id="tfSecondName" />
                 <TextField fx:id="tfBirthday" />
                 <TextField fx:id="tfEmail" layoutX="10.0" layoutY="10.0" />
                 <TextField fx:id="tfMarried" layoutX="10.0" layoutY="35.0" />
@@ -60,21 +67,21 @@
                 <TextField fx:id="tfDepartment" />
             </children>
         </VBox>
-        <TableView fx:id="tvEmployees" layoutX="318.0" layoutY="54.0" prefHeight="375.0" prefWidth="870.0">
+        <TableView fx:id="tvEmployees" layoutX="318.0" layoutY="54.0" prefHeight="407.0" prefWidth="870.0">
             <columns>
                 <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
                 <TableColumn fx:id="colUsername" prefWidth="160.0" text="Username" />
-                <TableColumn fx:id="colAge" prefWidth="60.0" text="Age" />
                 <TableColumn fx:id="colBirthday" prefWidth="100.0" text="Birthday" />
+                <TableColumn fx:id="colAge" prefWidth="60.0" text="Age" />
                 <TableColumn fx:id="colEmail" prefWidth="140.0" text="Email" />
                 <TableColumn fx:id="colMarried" prefWidth="100.0" text="Married" />
                 <TableColumn fx:id="colSalary" prefWidth="100.0" text="Salary" />
                 <TableColumn fx:id="colDepartment" prefWidth="160.0" text="Department" />
             </columns>
         </TableView>
-        <Button fx:id="btnInsert" layoutX="24.0" layoutY="397.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="85.0" text="Insert" />
-        <Button fx:id="btnUpdate" layoutX="123.0" layoutY="397.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="85.0" text="Update" />
-        <Button fx:id="btnDelete" layoutX="224.0" layoutY="397.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="76.0" text="Delete" />
+        <Button fx:id="btnInsert" layoutX="24.0" layoutY="429.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="85.0" text="Insert" />
+        <Button fx:id="btnUpdate" layoutX="123.0" layoutY="429.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="85.0" text="Update" />
+        <Button fx:id="btnDelete" layoutX="224.0" layoutY="429.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="76.0" text="Delete" />
         <Text layoutX="14.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee: CRUD operations" textAlignment="CENTER" wrappingWidth="283.5283203125">
             <font>
                 <Font name="System Bold" size="19.0" />

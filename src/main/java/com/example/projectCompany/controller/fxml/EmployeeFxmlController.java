@@ -52,7 +52,9 @@ public class EmployeeFxmlController implements Initializable {
     @FXML
     private TextField tfId;
     @FXML
-    private TextField tfUsername;
+    private TextField tfFirstName;
+    @FXML
+    private TextField tfSecondName;
     @FXML
     private TextField tfBirthday;
     @FXML
@@ -71,9 +73,9 @@ public class EmployeeFxmlController implements Initializable {
     @FXML
     private TableColumn<EmployeeResponseDto, String> colUsername;
     @FXML
-    private TableColumn<EmployeeResponseDto, String> colAge;
-    @FXML
     private TableColumn<EmployeeResponseDto, String> colBirthday;
+    @FXML
+    private TableColumn<EmployeeResponseDto, String> colAge;
     @FXML
     private TableColumn<EmployeeResponseDto, String> colEmail;
     @FXML
@@ -135,8 +137,8 @@ public class EmployeeFxmlController implements Initializable {
 
         colId.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, Long>("id"));
         colUsername.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, String>("username"));
-        colAge.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, String>("age"));
         colBirthday.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, String>("birthday"));
+        colAge.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, String>("age"));
         colEmail.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, String>("email"));
         colMarried.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, Boolean>("married"));
         colSalary.setCellValueFactory(new PropertyValueFactory<EmployeeResponseDto, Double>("salary"));
@@ -146,12 +148,9 @@ public class EmployeeFxmlController implements Initializable {
     }
 
     private void insertRecord() throws IOException {
-        String[] fullName;
-        fullName = tfUsername.getText().split(" ");
-
         EmployeeRequestDto request = new EmployeeRequestDto();
-        request.setFirstName(fullName[0]);
-        request.setLastName(fullName[1]);
+        request.setFirstName(tfFirstName.getText());
+        request.setLastName(tfSecondName.getText());
         request.setBirthday(tfBirthday.getText());
         request.setEmail(tfEmail.getText());
         request.setSalary(Double.parseDouble(tfSalary.getText()));
@@ -165,13 +164,10 @@ public class EmployeeFxmlController implements Initializable {
     }
 
     private void updateRecord() throws IOException {
-        String[] fullName;
-        fullName = tfUsername.getText().split(" ");
-
         EmployeeRequestDto request = new EmployeeRequestDto();
         request.setId(Long.parseLong(tfId.getText()));
-        request.setFirstName(fullName[0]);
-        request.setLastName(fullName[1]);
+        request.setFirstName(tfFirstName.getText());
+        request.setLastName(tfSecondName.getText());
         request.setBirthday(tfBirthday.getText());
         request.setEmail(tfEmail.getText());
         request.setSalary(Double.parseDouble(tfSalary.getText()));
