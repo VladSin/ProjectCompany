@@ -27,7 +27,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Optional <Employee> getEmployeeById(Long id) {
+    public Optional<Employee> getEmployeeById(Long id) {
         return employeeRepository.findById(id);
     }
 
@@ -37,12 +37,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee getEmployeeByUsername(String username) {
-        return employeeRepository.findByUsername(username);
+    public Employee getEmployeeByUsername(String firstName, String lastName) {
+        return employeeRepository.findByFirstNameAndLastName(firstName, lastName);
     }
 
     @Override
-    public List<Employee> getAll() {
+    public List<Employee> getAllEmployee() {
         return employeeRepository.findAll();
     }
 
@@ -75,7 +75,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void updateEmployeeData(Employee employee) {
         employeeRepository.updateEmployeeData(
                 employee.getId(),
-                employee.getUsername(),
+                employee.getFirstName(),
+                employee.getLastName(),
+                employee.getBirthday(),
                 employee.getEmail(),
                 employee.getSalary(),
                 employee.isMarried(),

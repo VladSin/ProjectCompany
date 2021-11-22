@@ -2,6 +2,7 @@ package com.example.projectCompany.service;
 
 
 import com.example.projectCompany.entity.Department;
+import com.example.projectCompany.entity.Employee;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public interface DepartmentService {
     List<Department> getAllDepartmentByLocation(String location);
 
     List<Department> getAllDepartment();
+
+    Optional<Employee> getHeadOfDepartment(Long id);
 
     void updateDepartmentData(Department department);
 

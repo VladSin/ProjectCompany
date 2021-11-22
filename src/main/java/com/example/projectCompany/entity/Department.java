@@ -28,6 +28,10 @@ public class Department {
     @Column(name = "location")
     private String location;
 
+    @OneToOne
+    @JoinColumn(name = "head_id", referencedColumnName = "id")
+    private Employee headId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Company company;
 

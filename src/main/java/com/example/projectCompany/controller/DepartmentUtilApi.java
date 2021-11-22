@@ -2,6 +2,7 @@ package com.example.projectCompany.controller;
 
 import com.example.projectCompany.dto.request.DepartmentRequestDto;
 import com.example.projectCompany.dto.response.DepartmentResponseDto;
+import com.example.projectCompany.dto.response.EmployeeResponseDto;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -26,6 +27,9 @@ public interface DepartmentUtilApi {
 
     @PATCH("/department/update/{id}")
     Call<DepartmentResponseDto> updateDepartmentData(@Path("id") Long id, @Body DepartmentRequestDto department);
+
+    @GET("/department/get/head/{id}")
+    Call<EmployeeResponseDto> getHeadOfDepartmentById(@Path("id") Long id);
 
     @DELETE("/department/delete/{id}")
     Call<String> deleteDepartment(@Path("id") Long id);

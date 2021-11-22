@@ -92,7 +92,7 @@ public class ExpansionDepartmentFxmlController {
         } else if (event.getSource() == miReport) {
             openWebpage("http://localhost:8080/export/departments/excel");
         } else if (event.getSource() == miBack) {
-            redirectToAnotherWindow(event, "/fxml/mainDepartment.fxml");
+            redirectToAnotherWindow(event, "/fxml/department.fxml");
         }
 
     }

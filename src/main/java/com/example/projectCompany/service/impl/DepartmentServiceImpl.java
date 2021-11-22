@@ -1,8 +1,10 @@
 package com.example.projectCompany.service.impl;
 
 import com.example.projectCompany.entity.Department;
+import com.example.projectCompany.entity.Employee;
 import com.example.projectCompany.repository.DepartmentRepository;
 import com.example.projectCompany.service.DepartmentService;
+import com.example.projectCompany.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +15,12 @@ import java.util.Optional;
 public class DepartmentServiceImpl implements DepartmentService {
 
     private final DepartmentRepository departmentRepository;
+    private final EmployeeService employeeService;
 
     @Autowired
-    public DepartmentServiceImpl(DepartmentRepository departmentRepository) {
+    public DepartmentServiceImpl(DepartmentRepository departmentRepository, EmployeeService employeeService) {
         this.departmentRepository = departmentRepository;
+        this.employeeService = employeeService;
     }
 
     @Override
@@ -45,12 +49,18 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public Optional<Employee> getHeadOfDepartment(Long headId){
+        return employeeService.getEmployeeById(headId);
+    }
+
+    @Override
     public void updateDepartmentData(Department department) {
         departmentRepository.updateDepartmentData(
                 department.getId(),
                 department.getName(),
                 department.getWebsite(),
                 department.getLocation(),
+                department.getHeadId(),
                 department.getCompany());
     }
 

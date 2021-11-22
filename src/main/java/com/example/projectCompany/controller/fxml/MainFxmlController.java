@@ -21,7 +21,7 @@ import java.io.InputStream;
 public class MainFxmlController {
 
     @FXML
-    private MenuItem miLogout;
+    private MenuItem miReport;
     @FXML
     private MenuItem miCompany;
     @FXML
@@ -47,18 +47,25 @@ public class MainFxmlController {
         }
     }
 
+    @FXML
     public void menuHandleButtonAction(ActionEvent event) throws IOException {
 
-        if (event.getSource() == miLogout) {
-            redirectToAnotherWindow(event, "/fxml/index.fxml");
+        if (event.getSource() == miReport) {
+            openWebpage("http://localhost:8080/export/report/excel");
         } else if (event.getSource() == miCompany) {
-            redirectToAnotherWindow(event, "/fxml/mainCompany.fxml");
+            redirectToAnotherWindow(event, "/fxml/company.fxml");
         } else if (event.getSource() == miDepartment) {
-            redirectToAnotherWindow(event, "/fxml/mainDepartment.fxml");
+            redirectToAnotherWindow(event, "/fxml/department.fxml");
         } else if (event.getSource() == miEmployee) {
-            redirectToAnotherWindow(event, "/fxml/mainEmployee.fxml");
+            redirectToAnotherWindow(event, "/fxml/employee.fxml");
         }
 
+    }
+
+    @FXML
+    public static void openWebpage(String urlString) throws IOException {
+        Runtime rt = Runtime.getRuntime();
+        rt.exec("rundll32 url.dll,FileProtocolHandler " + urlString);
     }
 
     public void redirectToAnotherWindow(ActionEvent event, String url) throws IOException {

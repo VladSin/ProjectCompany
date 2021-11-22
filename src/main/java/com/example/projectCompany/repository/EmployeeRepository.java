@@ -9,19 +9,15 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
-    Optional<Employee> findById(Long id);
-
     Employee findByEmail(String email);
 
-    Employee findByUsername(String username);
-
-    List<Employee> findAll();
+    Employee findByFirstNameAndLastName(String firstName, String lastName);
 
     List<Employee> findAllByMarried(boolean married);
 
@@ -36,8 +32,18 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "update Employee set username = :username where id = :id")
-    void updateUsername(@Param("id") Long id, @Param("username") String username);
+    @Query(value = "update Employee set firstName = :firstName where id = :id")
+    void updateFirstName(@Param("id") Long id, @Param("firstName") String firstName);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update Employee set lastName = :lastName where id = :id")
+    void updateLastName(@Param("id") Long id, @Param("lastName") String lastName);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update Employee set birthday = :birthday where id = :id")
+    void updateBirthday(@Param("id") Long id, @Param("birthday") String birthday);
 
     @Transactional
     @Modifying(clearAutomatically = true)
@@ -56,10 +62,12 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "update Employee set username = :username, email = :email, salary = :salary, " +
+    @Query(value = "update Employee set firstName = :firstName, lastName = :lastName, birthday = :birthday, email = :email, salary = :salary, " +
             "married = :married, department =:department where id = :id")
     void updateEmployeeData(@Param("id") Long id,
-                            @Param("username") String username,
+                            @Param("firstName") String firstName,
+                            @Param("lastName") String lastName,
+                            @Param("birthday") Date birthday,
                             @Param("email") String email,
                             @Param("salary") double salary,
                             @Param("married") boolean married,

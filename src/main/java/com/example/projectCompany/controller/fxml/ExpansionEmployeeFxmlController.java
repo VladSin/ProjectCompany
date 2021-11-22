@@ -130,7 +130,7 @@ public class ExpansionEmployeeFxmlController implements Initializable {
         } else if (event.getSource() == miReport) {
             openWebpage("http://localhost:8080/export/employees/excel");
         } else if (event.getSource() == miBack) {
-            redirectToAnotherWindow(event, "/fxml/mainEmployee.fxml");
+            redirectToAnotherWindow(event, "/fxml/employee.fxml");
         }
 
     }
