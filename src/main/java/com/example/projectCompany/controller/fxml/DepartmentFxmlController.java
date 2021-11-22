@@ -1,9 +1,15 @@
 package com.example.projectCompany.controller.fxml;
 
+import com.example.projectCompany.controller.CompanyUtilApi;
 import com.example.projectCompany.controller.DepartmentUtilApi;
+import com.example.projectCompany.controller.EmployeeUtilApi;
+import com.example.projectCompany.controller.config.CompanyApiConfig;
 import com.example.projectCompany.controller.config.DepartmentApiConfig;
+import com.example.projectCompany.controller.config.EmployeeApiConfig;
 import com.example.projectCompany.dto.request.DepartmentRequestDto;
+import com.example.projectCompany.dto.response.CompanyResponseDto;
 import com.example.projectCompany.dto.response.DepartmentResponseDto;
+import com.example.projectCompany.dto.response.EmployeeResponseDto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,6 +30,7 @@ import retrofit2.Call;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -31,7 +38,9 @@ import java.util.ResourceBundle;
 @FxmlView("/fxml/department.fxml")
 public class DepartmentFxmlController implements Initializable {
 
-    private final DepartmentUtilApi api = DepartmentApiConfig.getApi();
+    private final DepartmentUtilApi departmentUtilApi = DepartmentApiConfig.getApi();
+    private final EmployeeUtilApi employeeUtilApi = EmployeeApiConfig.getApi();
+    private final CompanyUtilApi companyUtilApi = CompanyApiConfig.getApi();
 
     public DepartmentFxmlController() {
     }
@@ -39,6 +48,23 @@ public class DepartmentFxmlController implements Initializable {
     @SneakyThrows
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        ObservableList<EmployeeResponseDto> employeeList = FXCollections.observableArrayList(getEmployeesList());
+        ObservableList<CompanyResponseDto> companyList = FXCollections.observableArrayList(getCompaniesList());
+
+        List<String> employeeData = new ArrayList<>();
+        for (EmployeeResponseDto e: employeeList) {
+            employeeData.add(e.getId() + ", " + e.getUsername());
+        }
+
+        List<String> companyData = new ArrayList<>();
+        for (CompanyResponseDto c: companyList) {
+            companyData.add(c.getId() + ", " + c.getName());
+        }
+
+        cbCompany.setItems(FXCollections.observableArrayList(companyData));
+        cbHead.setItems(FXCollections.observableArrayList(employeeData));
+
         showDepartments();
     }
 
@@ -58,9 +84,9 @@ public class DepartmentFxmlController implements Initializable {
     @FXML
     private TextField tfWebSite;
     @FXML
-    private TextField tfCompany;
+    private ComboBox<String> cbCompany;
     @FXML
-    private TextField tfHead;
+    private ComboBox<String> cbHead;
 
     @FXML
     private TableView<DepartmentResponseDto> tvDepartment;
@@ -119,9 +145,20 @@ public class DepartmentFxmlController implements Initializable {
 
 
     public List<DepartmentResponseDto> getDepartmentsList() throws IOException {
-        Call<List<DepartmentResponseDto>> response = api.getAllDepartment();
+        Call<List<DepartmentResponseDto>> response = departmentUtilApi.getAllDepartment();
         return response.execute().body();
     }
+
+    public List<EmployeeResponseDto> getEmployeesList() throws IOException {
+        Call<List<EmployeeResponseDto>> response = employeeUtilApi.getAllEmployee();
+        return response.execute().body();
+    }
+
+    public List<CompanyResponseDto> getCompaniesList() throws IOException {
+        Call<List<CompanyResponseDto>> response = companyUtilApi.getAllCompany();
+        return response.execute().body();
+    }
+
 
     public void showDepartments() throws IOException {
         ObservableList<DepartmentResponseDto> list =
@@ -137,36 +174,44 @@ public class DepartmentFxmlController implements Initializable {
     }
 
     private void insertRecord() throws IOException {
+        String comma = ", ";
+        String[] companyData = cbCompany.getValue().split(comma);
+        String[] employeeData = cbHead.getValue().split(comma);
+
         DepartmentRequestDto request = new DepartmentRequestDto();
         request.setName(tfName.getText());
         request.setLocation(tfLocation.getText());
         request.setWebsite(tfWebSite.getText());
-        request.setCompany(tfCompany.getText());
-        request.setHead(Long.valueOf(tfHead.getText()));
+        request.setCompany(companyData[1]);
+        request.setHead(Long.valueOf(employeeData[0]));
 
-        Call<DepartmentResponseDto> response = api.saveDepartment(request);
+        Call<DepartmentResponseDto> response = departmentUtilApi.saveDepartment(request);
         System.out.println(response.request());
         System.out.println(response.execute().body());
         showDepartments();
     }
 
     private void updateRecord() throws IOException {
+        String comma = ", ";
+        String[] companyData = cbCompany.getValue().split(comma);
+        String[] employeeData = cbHead.getValue().split(comma);
+
         DepartmentRequestDto request = new DepartmentRequestDto();
         request.setId(Long.valueOf(tfId.getText()));
         request.setName(tfName.getText());
         request.setLocation(tfLocation.getText());
         request.setWebsite(tfWebSite.getText());
-        request.setCompany(tfCompany.getText());
-        request.setHead(Long.valueOf(tfHead.getText()));
+        request.setCompany(companyData[1]);
+        request.setHead(Long.valueOf(employeeData[0]));
 
-        Call<DepartmentResponseDto> response = api.updateDepartmentData(request.getId(), request);
+        Call<DepartmentResponseDto> response = departmentUtilApi.updateDepartmentData(request.getId(), request);
         System.out.println(response.request());
         System.out.println(response.execute().body());
         showDepartments();
     }
 
     private void deleteButton() throws IOException {
-        Call<String> response = api.deleteDepartment(Long.valueOf(tfId.getText()));
+        Call<String> response = departmentUtilApi.deleteDepartment(Long.valueOf(tfId.getText()));
         System.out.println(response.request());
         System.out.println(response.execute().body());
         showDepartments();
